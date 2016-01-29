@@ -37,6 +37,7 @@ public class Launch extends Command {
     	}
     	else{
     		Robot.launcher.angleLauncher(0);
+    		//stop angling
     	}
     }
 
