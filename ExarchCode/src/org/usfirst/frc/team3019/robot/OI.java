@@ -19,11 +19,18 @@ public class OI {
 //    public Joystick stick = new Joystick(0);
 	public Joystick stick = new Joystick(0);
 	public Joystick xbox = new Joystick(1);
+	
 	public Button button1 = new JoystickButton(stick, 1);
 	public Button button2 = new JoystickButton(stick, 2);
 	public Button button3 = new JoystickButton(stick, 3);
 	public Button button4 = new JoystickButton(stick, 4);
 	public Button button5 = new JoystickButton(stick, 5);
+	
+	public Button xb1 = new JoystickButton(xbox, 1);
+	public Button xb2 = new JoystickButton(xbox, 2);
+	public Button xb3 = new JoystickButton(xbox, 3);
+	public Button xb4 = new JoystickButton(xbox, 4);
+	public Button xb5 = new JoystickButton(xbox, 5);
 	
 	
 	
@@ -32,6 +39,11 @@ public class OI {
 		button3.whenPressed(new Compress("forward"));
 		button4.whenPressed(new Compress("reverse"));
 		button5.whenPressed(new Compress("off"));
+		
+		xb1.whenPressed(new PIDTurn());
+		xb3.whenPressed(new Compress("forward"));
+		xb4.whenPressed(new Compress("reverse"));
+		xb5.whenPressed(new Compress("off"));
 	}
 ////    
 //    public Button button = new JoystickButton(xbox, 1);

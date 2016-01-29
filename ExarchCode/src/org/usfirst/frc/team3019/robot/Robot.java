@@ -2,6 +2,7 @@
 package org.usfirst.frc.team3019.robot;
 
 import org.usfirst.frc.team3019.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team3019.robot.subsystems.Launcher;
 import org.usfirst.frc.team3019.robot.subsystems.LiftMotors;
 import org.usfirst.frc.team3019.robot.subsystems.MXPBreakout;
 import org.usfirst.frc.team3019.robot.subsystems.PIDDrive;
@@ -34,6 +35,7 @@ public class Robot extends IterativeRobot {
 	public static PIDDrive PIDdrive;
 	public static MXPBreakout mxpBreakout;
 	public static Pneumatics pneumatics;
+	public static Launcher launcher;
 //	public static Elevator elevator;
 //	public static ElevatorArms elevatorArms;
 	public static OI oi;
@@ -69,6 +71,7 @@ public class Robot extends IterativeRobot {
 		pneumatics = new Pneumatics();
 		liftMotors = new LiftMotors();
 		mxpBreakout = new MXPBreakout();
+		launcher = new Launcher();
 		PIDdrive = new PIDDrive(0.6, .45, .2);
 		oi = new OI();
     	
