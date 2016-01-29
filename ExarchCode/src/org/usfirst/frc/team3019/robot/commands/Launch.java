@@ -23,17 +23,17 @@ public class Launch extends Command {
     protected void execute() {
     	//activate fly wheels
     	if(Robot.oi.xb1.get()){
-    		Robot.launcher.launch(1);
+    		Robot.launcher.launch(-1);
     	}
     	else{
     		Robot.launcher.launch(0);
     	}
     	//activate angler
     	if(Robot.oi.xb2.get()){
-    		Robot.launcher.angleLauncher(.7);
+    		Robot.launcher.angleLauncher(.15);
     	}
     	else if(Robot.oi.xb3.get()){
-    		Robot.launcher.angleLauncher(-.7);
+    		Robot.launcher.angleLauncher(-.3);
     	}
     	else{
     		Robot.launcher.angleLauncher(0);

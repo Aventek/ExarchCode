@@ -15,8 +15,8 @@ public class RobotMap {
      public static final int leftMotorPWM = 0;
      public static int rightMotorPWM = 1;
      
-     public static int liftMotorsPWM = 3;
-     public static int armMotorsPWM = 4;
+     public static int liftMotorsPWM =7;
+     public static int armMotorsPWM = 8;
      
     
     // If you are using multiple modules, make sure to define both the port

@@ -20,6 +20,7 @@ public class OI {
 	public Joystick stick = new Joystick(0);
 	public Joystick xbox = new Joystick(1);
 	
+	
 	public Button button1 = new JoystickButton(stick, 1);
 	public Button button2 = new JoystickButton(stick, 2);
 	public Button button3 = new JoystickButton(stick, 3);
@@ -44,6 +45,7 @@ public class OI {
 		xb3.whenPressed(new Compress("forward"));
 		xb4.whenPressed(new Compress("reverse"));
 		xb5.whenPressed(new Compress("off"));
+		
 	}
 ////    
 //    public Button button = new JoystickButton(xbox, 1);

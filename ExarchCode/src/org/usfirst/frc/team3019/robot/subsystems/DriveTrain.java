@@ -26,6 +26,7 @@ public class DriveTrain extends Subsystem {
 		super();
 		rightMotor = new Talon(RobotMap.rightMotorPWM);
 		leftMotor = new Talon(RobotMap.leftMotorPWM);
+		rightMotor.setInverted(true);
 //		leftLaunchMotor = new Talon(2);
 //		rightLaunchMotor = new Talon(3);
 		

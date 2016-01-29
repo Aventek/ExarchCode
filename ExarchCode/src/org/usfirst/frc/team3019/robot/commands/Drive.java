@@ -21,7 +21,8 @@ public class Drive extends Command{
 	protected void execute() {
 		// TODO Auto-generated method stub
 //		if(Robot.driveTrain.State == 0){
-		Robot.driveTrain.arcadeDrive(-Robot.oi.stick.getY() *0.5 , -Robot.oi.stick.getTwist()*0.5);
+		Robot.driveTrain.arcadeDrive(-Robot.oi.stick.getY() *0.8 , -Robot.oi.stick.getTwist()*0.8);
+		
 //		}
 //		Robot.driveTrain.tankDrive(.5, .5);
 //		Robot.driveTrain.tankDrive(Robot.oi.stick.getRawAxis(1),Robot.oi.stick.getRawAxis(6));
