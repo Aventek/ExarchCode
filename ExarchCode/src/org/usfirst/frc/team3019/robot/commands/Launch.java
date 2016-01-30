@@ -4,54 +4,68 @@ import org.usfirst.frc.team3019.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-/**
- *
- */
 public class Launch extends Command {
 
     public Launch() {
-        // Use requires() here to declare subsystem dependencies
          requires(Robot.launcher);
     }
 
-    // Called just before this Command runs the first time
     protected void initialize() {
- 
     }
 
-    // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	//activate fly wheels
+    
+    	//spinning launcher motors
     	if(Robot.oi.xb1.get()){
+    		
+    		//when button A is held down run motors for launching
     		Robot.launcher.launch(-1);
-    	}
-    	else{
+    		
+    	}else if(Robot.oi.xb6.get()){
+    		
+    		//when right trigger is held down run motors for intake
+    		Robot.launcher.launch(0.4);
+    		
+    	}else{
+    		
+    		//when neither are held down dont run motors
     		Robot.launcher.launch(0);
+    	
     	}
+    	
     	//activate angler
     	if(Robot.oi.xb2.get()){
-    		Robot.launcher.angleLauncher(.15);
-    	}
-    	else if(Robot.oi.xb3.get()){
+    		
+    		//when B is held down angle launcher down
     		Robot.launcher.angleLauncher(-.3);
-    	}
-    	else{
-    		Robot.launcher.angleLauncher(0);
+    	
+    	}else if(Robot.oi.xb3.get()){
+    		
+    		//when X is held down, angle launcher up
+    		Robot.launcher.angleLauncher(.6);
+    	
+    	}else{
     		//stop angling
+    		Robot.launcher.angleLauncher(0);
+    	
     	}
+    	
+    	//toggle state of servo
+    	if(Robot.oi.xb4.get()){
+    	
+    		Robot.launcher.falconPunch();
+    	
+    	}
+    	
     }
 
-    // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return false;
     }
 
-    // Called once after isFinished returns true
     protected void end() {
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
     protected void interrupted() {
     }
 }

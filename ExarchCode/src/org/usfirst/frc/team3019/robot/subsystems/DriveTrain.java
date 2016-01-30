@@ -8,46 +8,48 @@ import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-/**
- *
- */
 public class DriveTrain extends Subsystem {
+	
+	//instantiate motors and drives used
     Talon leftMotor;
     Talon rightMotor;
-//    Talon leftLaunchMotor;
-//    Talon rightLaunchMotor;
     RobotDrive drive;
-//    public static int State = 0;
-//    RobotDrive launcher;
     
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
 	public DriveTrain(){
+	
 		super();
-		rightMotor = new Talon(RobotMap.rightMotorPWM);
-		leftMotor = new Talon(RobotMap.leftMotorPWM);
-		rightMotor.setInverted(true);
-//		leftLaunchMotor = new Talon(2);
-//		rightLaunchMotor = new Talon(3);
 		
+		//setting left and right motors to correct ports
+		rightMotor = new Talon(RobotMap.rightDrivePWM);
+		leftMotor = new Talon(RobotMap.leftDrivePWM);
+		
+		//standard drive system
 		drive = new RobotDrive(leftMotor, rightMotor);
-//		launcher = new RobotDrive(leftLaunchMotor, rightLaunchMotor);
 		
 	}
+	
 	@Override
     protected void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        setDefaultCommand(new Drive());
+		setDefaultCommand(new Drive());
     }
+	
+//DO: Drive function using magnitude and curve to drive
 	public void drive(double magnitude, double curve){
+	
 		drive.drive(magnitude, curve);
+	
 	}
 	
-	
+//DO: Drive function using arcade drive (1 stick with twist to turn)
 	public void arcadeDrive(double moveValue, double rotateValue){
+		
 		drive.arcadeDrive(moveValue , rotateValue );
+	
 	}
+	
+//DO: Drive function using tank drive (2 sticks, 1 left one right, each controlling one side of drivetrain)
 	public void tankDrive(double leftValue, double rightValue){
+		
 		drive.tankDrive(leftValue, rightValue);
 		
 	}

@@ -10,41 +10,56 @@ public class MXPBreakout extends Subsystem {
 	ADIS16448_IMU imu;
 	
 	public MXPBreakout() {
-		// TODO Auto-generated constructor stub
+
+		//assign breakout board then calibrate (runs when robot starts initially)
 		imu = new ADIS16448_IMU();
-		
 		imu.calibrate();
+	
 	}
+	
 	@Override
 	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
 		setDefaultCommand(new SensorOutput());
 	}
+	
+//DO: returns roll of board
 	public double getRoll(){
 		return imu.getRoll();
 	}
+	
+//DO: returns yaw of board	
 	public double getYaw(){
 		return imu.getYaw();
 	}
+	
+//DO: returns pitch of board
 	public double getPitch(){
 		return imu.getPitch();
 	}
+	
+//DO: returns pressure around board	
 	public double getPressure(){
 		return imu.getBarometricPressure();
 	}
+	
+//DO: returns X angle (rotation) of board	
 	public double getX(){
 		return imu.getAngleX();
 	}
+	
+//DO: returns rate of change of X angle (rotation) of board
 	public double getXRate(){
 		return imu.getRateX();
 	}
+
+//DO: returns Acceleration of X angle (rotation) of board
 	public double getAccelX(){
 		return imu.getAccelX();
 	}
+
+//DO: returns all data from breakout board	
 	public ADIS16448_IMU getImu(){
-		return imu;
-		
+		return imu;	
 	}
 	
-
 }

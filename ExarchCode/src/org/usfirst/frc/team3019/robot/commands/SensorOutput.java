@@ -8,18 +8,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class SensorOutput extends Command {
 
 	public SensorOutput() {
-	// TODO Auto-generated constructor stub
 		requires(Robot.mxpBreakout);
 	}
+	
 	@Override
 	protected void initialize() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	protected void execute() {
-		// TODO Auto-generated method stub
+		
+		//print all data from breakout board to SmartDash
 		SmartDashboard.putData("imu", Robot.mxpBreakout.getImu());
 		SmartDashboard.putNumber("pitch", Robot.mxpBreakout.getPitch());
 		SmartDashboard.putNumber("yaw", Robot.mxpBreakout.getYaw());
@@ -29,25 +28,19 @@ public class SensorOutput extends Command {
 		SmartDashboard.putNumber("xRate", Robot.mxpBreakout.getXRate());
 		SmartDashboard.putNumber("AccelX", Robot.mxpBreakout.getAccelX());
 		
-		
 	}
 
 	@Override
 	protected boolean isFinished() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	protected void end() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	protected void interrupted() {
-		// TODO Auto-generated method stub
-
 	}
 
 }

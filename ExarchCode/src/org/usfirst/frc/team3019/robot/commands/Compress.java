@@ -6,50 +6,58 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Compress extends Command {
 	
+	//constants needed
 	String whatDo = "off";
 	Boolean isDone = false;
 
     public Compress() {
-        // Use requires() here to declare subsystem dependencies
          requires(Robot.pneumatics);
     }
 
     public Compress(String string) {
+    	
+    	//if recieveing a string for Compress state, set it to whatDo    
     	whatDo = string;
-		// TODO Auto-generated constructor stub
+		
 	}
 
-	// Called just before this Command runs the first time
     protected void initialize() {
+    	
+    	//based on what input for what to do, run solenoid and output to SmartDash    	
     	if(whatDo == "forward"){
+    		
+    		// if told forward, solenoid forward
     		Robot.pneumatics.soliForward();
     		SmartDashboard.putString("PneumaticsStatus", "FWD");
+    	
     	}else if(whatDo == "reverse"){
+    		
+    		// if told reverse, solenoid reverse
     		Robot.pneumatics.soliReverse();
     		SmartDashboard.putString("PneumaticsStatus", "REV");
+    	
     	}else if(whatDo == "off"){
+    		
+    		// if told off, solenoid off    	
     		Robot.pneumatics.soliOff();
     		SmartDashboard.putString("PneumaticsStatus", "OFF");
-    	}
-    	isDone = true;
-    }
-
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
     	
+    	}
+    	//after telling solenoid what to do, exit command
+    	isDone = true;
+    
     }
 
-    // Make this return true when this Command no longer needs to run execute()
+    protected void execute() {
+    }
+
     protected boolean isFinished() {
         return isDone;
     }
 
-    // Called once after isFinished returns true
     protected void end() {
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
     protected void interrupted() {
     }
 }

@@ -1,40 +1,44 @@
 package org.usfirst.frc.team3019.robot.subsystems;
 
-import org.usfirst.frc.team3019.robot.commands.Compress;
-
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-/**
- *
- */
 public class Pneumatics extends Subsystem {
 	
+	//assign objects to correct ports
 	Compressor c = new Compressor(0);
-	
 	DoubleSolenoid soli1 = new DoubleSolenoid(1,2);
 	
-	
-    
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
-
     public void initDefaultCommand() {
+    
+    	//when pneumatics starts set solenoid off and start compressing
     	soli1.set(DoubleSolenoid.Value.kOff);
     	c.start();
     	c.setClosedLoopControl(true);
-        // Set the default command for a subsystem here.
-//        setDefaultCommand(new Compress());
+    
     }
+  
+//DO: turn solenoid to forward
     public void soliForward(){
+    	
     	soli1.set(DoubleSolenoid.Value.kForward);
+    
     }
+
+//DO: turn solenoid to reverse    
     public void soliReverse(){
+    
     	soli1.set(DoubleSolenoid.Value.kReverse);
+    
     }
+
+//DO: turn solenoid off    
     public void soliOff(){
+    	
     	soli1.set(DoubleSolenoid.Value.kOff);
+    
     }
+
 }
 

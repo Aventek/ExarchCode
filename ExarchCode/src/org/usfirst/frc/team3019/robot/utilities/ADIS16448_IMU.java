@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindowSendable;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 /**
- * This class is for the ADIS16448 IMU that connects to the RoboRIO MXP port.
+ * This class is for the ADIS16448 IMU that connects to the RoboRIO MXP port.(breakout board)
  */
 public class ADIS16448_IMU extends GyroBase implements Gyro, PIDSource, LiveWindowSendable {
   private static final double kTimeout = 0.1;
