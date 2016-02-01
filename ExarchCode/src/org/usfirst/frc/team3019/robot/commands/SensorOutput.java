@@ -1,32 +1,34 @@
 package org.usfirst.frc.team3019.robot.commands;
 
 import org.usfirst.frc.team3019.robot.Robot;
+import org.usfirst.frc.team3019.robot.subsystems.MXPBreakout;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class SensorOutput extends Command {
 
+	double first = 0;
+	double corrected = 0;
 	public SensorOutput() {
 		requires(Robot.mxpBreakout);
 	}
 	
 	@Override
 	protected void initialize() {
+		first = Robot.mxpBreakout.getYaw();
 	}
 
 	@Override
 	protected void execute() {
-		
+		corrected = first - Robot.mxpBreakout.getYaw();
 		//print all data from breakout board to SmartDash
 		SmartDashboard.putData("imu", Robot.mxpBreakout.getImu());
 		SmartDashboard.putNumber("pitch", Robot.mxpBreakout.getPitch());
-		SmartDashboard.putNumber("yaw", Robot.mxpBreakout.getYaw());
+		SmartDashboard.putNumber("yaw", corrected);
 		SmartDashboard.putNumber("roll", Robot.mxpBreakout.getRoll());
+		SmartDashboard.putNumber("spiAngle", MXPBreakout.spigyro.getAngle());
 		SmartDashboard.putNumber("pressure", Robot.mxpBreakout.getPressure());
-		SmartDashboard.putNumber("x", Robot.mxpBreakout.getX());
-		SmartDashboard.putNumber("xRate", Robot.mxpBreakout.getXRate());
-		SmartDashboard.putNumber("AccelX", Robot.mxpBreakout.getAccelX());
 		
 	}
 

@@ -2,19 +2,23 @@ package org.usfirst.frc.team3019.robot.subsystems;
 
 import org.usfirst.frc.team3019.robot.commands.SensorOutput;
 import org.usfirst.frc.team3019.robot.utilities.ADIS16448_IMU;
+import org.usfirst.frc.team3019.robot.utilities.SPIGYRO;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class MXPBreakout extends Subsystem {
 
 	ADIS16448_IMU imu;
+	public static SPIGYRO spigyro;
 	
 	public MXPBreakout() {
 
 		//assign breakout board then calibrate (runs when robot starts initially)
 		imu = new ADIS16448_IMU();
+		spigyro = new SPIGYRO();
 		imu.calibrate();
-	
+		spigyro.calibrate();
+		
 	}
 	
 	@Override

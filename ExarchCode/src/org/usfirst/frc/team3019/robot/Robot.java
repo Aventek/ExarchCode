@@ -55,7 +55,7 @@ public class Robot extends IterativeRobot {
 		pneumatics = new Pneumatics();
 		mxpBreakout = new MXPBreakout();
 		launcher = new Launcher();
-		PIDdrive = new PIDDrive(0.6, .45, .2);
+		PIDdrive = new PIDDrive(0.8, 0.0, 0.0,0);
 		oi = new OI();
 		
     }

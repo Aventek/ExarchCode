@@ -3,11 +3,13 @@ package org.usfirst.frc.team3019.robot.commands;
 import org.usfirst.frc.team3019.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class PIDTurn extends Command{
 
 	public PIDTurn() {
 		requires(Robot.PIDdrive);
+		requires(Robot.mxpBreakout);
 	}
 	
 	@Override
@@ -26,7 +28,7 @@ public class PIDTurn extends Command{
 	protected boolean isFinished() {
 		
 		//stops correcting if within 0.3 degrees of target forward
-		double error = Robot.PIDdrive.getPosition(); 
+		double error = SmartDashboard.getNumber("azimuth",0);
 		return Math.abs(error) < .3f;
 	
 	}

@@ -12,7 +12,14 @@ public class PIDDrive extends PIDSubsystem {
 	NetworkTable table;
 	public static double P;
     
-    public PIDDrive(double P, double I, double D) {
+	/**
+	 * 
+	 * @param P P term for the pid
+	 * @param I I term for the pid
+	 * @param D D term for the pid
+	 * @param setPoint the setpoint for the pid loop
+	 */
+    public PIDDrive(double P, double I, double D,double setPoint) {
     
     	super(P,I,D);
     	
@@ -20,12 +27,18 @@ public class PIDDrive extends PIDSubsystem {
     	table = NetworkTable.getTable("TowerTracker");
     	
     	//focus PID info
-    	setSetpoint(0);
+    	double Current = SmartDashboard.getNumber("azimuth",0);
+    	Robot.mxpBreakout.spigyro.reset();
+    	setSetpoint(Current);
     	setInputRange(-25, 25);
     	setAbsoluteTolerance(1);
-    	setOutputRange(-.7, .7);
+    	setOutputRange(-1, 1);
     
     }
+    public PIDDrive(double P, double I, double D) {
+		// TODO Auto-generated constructor stub
+    	this(P,I,D,0);
+	}
     
     public void initDefaultCommand() {
     }
@@ -34,7 +47,7 @@ public class PIDDrive extends PIDSubsystem {
     protected double returnPIDInput() {
     
     	//input for PID System is the azimuthal ( angle off from center/forward in horizontal aspect)
-    	return SmartDashboard.getNumber("azimuth",0);
+    	return Robot.mxpBreakout.spigyro.getAngle();
     
     }
     
@@ -42,7 +55,7 @@ public class PIDDrive extends PIDSubsystem {
     protected void usePIDOutput(double output) {
     	
     	//Output of pid to rotate bot towards center/forward
-    	Robot.driveTrain.arcadeDrive(0, -output);
+    	Robot.driveTrain.arcadeDrive(0, output);
     
     }
 

@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team3019.robot.subsystems;
 
+import org.usfirst.frc.team3019.robot.Robot;
 import org.usfirst.frc.team3019.robot.RobotMap;
 import org.usfirst.frc.team3019.robot.commands.*;
 
@@ -36,8 +37,9 @@ public class DriveTrain extends Subsystem {
 //DO: Drive function using magnitude and curve to drive
 	public void drive(double magnitude, double curve){
 	
-		drive.drive(magnitude, curve);
-	
+		if(!Robot.oi.xb1.get()){
+			drive.drive(magnitude, curve);	
+		}
 	}
 	
 //DO: Drive function using arcade drive (1 stick with twist to turn)

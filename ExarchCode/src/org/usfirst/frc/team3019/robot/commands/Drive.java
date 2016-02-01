@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class Drive extends Command{
 	
-	public double driveNerf = 0.6;
+	public double driveNerf = 1;
 	
 	public Drive() {
 		requires(Robot.driveTrain);
@@ -19,7 +19,7 @@ public class Drive extends Command{
 	protected void execute() {
 		
 		//Simple arcade drive from lStick axes 
-		Robot.driveTrain.arcadeDrive(-Robot.oi.xbox.getY() * driveNerf , -Robot.oi.xbox.getX() * driveNerf);
+		Robot.driveTrain.arcadeDrive(-Robot.oi.xbox.getY() * driveNerf , Robot.oi.xbox.getX() * driveNerf);
 	
 	}
 
