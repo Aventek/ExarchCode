@@ -6,6 +6,7 @@ import org.usfirst.frc.team3019.robot.subsystems.Launcher;
 import org.usfirst.frc.team3019.robot.subsystems.MXPBreakout;
 import org.usfirst.frc.team3019.robot.subsystems.PIDDrive;
 import org.usfirst.frc.team3019.robot.subsystems.Pneumatics;
+import org.usfirst.frc.team3019.robot.utilities.DriveState;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -36,6 +37,8 @@ public class Robot extends IterativeRobot {
 	public static Pneumatics pneumatics;
 	public static Launcher launcher;
 	public static OI oi;
+	
+	public static DriveState state = DriveState.JOYSTICK;
 	
 //autonomous command (not in use)
     Command autonomousCommand;
@@ -82,6 +85,11 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopPeriodic() {
+    	
+    	//put current driveState in smartDash
+    	SmartDashboard.putString("driveState", "" + state);
+    	
+    	
 //VISION PROCESSING
     	SmartDashboard.putNumber("distance", table.getNumber("VISdistance", 0));
         double angleOff;

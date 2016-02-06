@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3019.robot.commands;
 
 import org.usfirst.frc.team3019.robot.Robot;
+import org.usfirst.frc.team3019.robot.utilities.DriveState;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -17,6 +18,9 @@ public class PIDTurn extends Command{
 		
 		//starts aiming process
 		Robot.PIDdrive.enable();
+		
+		//set active drivestate to PID driving
+		Robot.state = DriveState.PID;
 
 	}
 
@@ -39,6 +43,7 @@ public class PIDTurn extends Command{
 		//when done aiming, stop motors and disable PID
 		Robot.driveTrain.arcadeDrive(0, 0);
 		Robot.PIDdrive.disable();
+		Robot.state = DriveState.JOYSTICK;
 		
 	}
 
