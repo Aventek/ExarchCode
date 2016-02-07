@@ -34,7 +34,7 @@ public class Robot extends IterativeRobot {
 	public static Launcher launcher;
 	public static OI oi;
 	
-	public static DriveState state = DriveState.JOYSTICK;
+	public static DriveState driveState = DriveState.JOYSTICK;
 	public static CompressorState compressorState = CompressorState.OFF;
 	
 //autonomous command (not in use)
@@ -85,7 +85,7 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
     	
     	//put current driveState in smartDash
-    	SmartDashboard.putString("driveState", "" + state);
+    	SmartDashboard.putString("driveState", "" + driveState);
     	
     	//put pot value in smartDash
     	SmartDashboard.putNumber("potReading",Robot.launcher.anglePot.get());

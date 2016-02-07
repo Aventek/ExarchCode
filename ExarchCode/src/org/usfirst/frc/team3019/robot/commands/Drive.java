@@ -22,7 +22,7 @@ public class Drive extends Command{
 	protected void execute() {
 		
 		//Simple arcade drive from lStick axes if not doing PID
-		if(Robot.state == DriveState.JOYSTICK){
+		if(Robot.driveState == DriveState.JOYSTICK){
 			Robot.driveTrain.arcadeDrive(-Robot.oi.xbox.getY() * driveNerf , -Robot.oi.xbox.getX() * driveNerf);
 		}
 		

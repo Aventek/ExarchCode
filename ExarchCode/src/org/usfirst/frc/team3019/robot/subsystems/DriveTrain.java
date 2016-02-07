@@ -34,14 +34,6 @@ public class DriveTrain extends Subsystem {
 		setDefaultCommand(new Drive());
     }
 	
-//DO: Drive function using magnitude and curve to drive
-	public void drive(double magnitude, double curve){
-	
-		if(!Robot.oi.xb1.get()){
-			drive.drive(magnitude, curve);	
-		}
-	}
-	
 //DO: Drive function using arcade drive (1 stick with twist to turn)
 	public void arcadeDrive(double moveValue, double rotateValue){
 		

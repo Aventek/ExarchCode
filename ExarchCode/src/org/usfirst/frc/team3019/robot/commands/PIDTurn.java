@@ -17,7 +17,7 @@ public class PIDTurn extends Command{
 	protected void initialize() {
 		
 		//set active drivestate to PID driving
-		Robot.state = DriveState.PID;
+		Robot.driveState = DriveState.PID;
 
 		//take initial angle values
 		Robot.PIDDrive.initialYaw = Robot.mxpBreakout.getYaw();
@@ -51,7 +51,7 @@ public class PIDTurn extends Command{
 		//when done aiming, stop motors, disable PID, and set drivestate back to Joystick
 		Robot.driveTrain.arcadeDrive(0, 0);
 		Robot.PIDDrive.disable();
-		Robot.state = DriveState.JOYSTICK;
+		Robot.driveState = DriveState.JOYSTICK;
 		
 //		Robot.launcher.hasAligned = true;
 	}

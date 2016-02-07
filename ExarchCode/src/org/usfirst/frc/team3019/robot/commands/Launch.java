@@ -22,7 +22,7 @@ public class Launch extends Command {
     protected void execute() {
     
     	//spinning launcher motors
-    	if(Robot.oi.xb1.get()){
+    	if(Robot.oi.xb5.get()){
     		
     		//when button A is held down run motors for launching
     		Robot.launcher.launch(1);

@@ -12,25 +12,38 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
     
-	/*xbox*/	public Joystick xbox = new Joystick(0);
+	/*xbox controller*/	
+	public Joystick xbox = new Joystick(0);
 	
-	/*A*/	public Button xb1 = new JoystickButton(xbox, 1);
+	/*A - used for AutoAim*/	
+	public Button xb1 = new JoystickButton(xbox, 1);
 	
-	/*B*/	public Button xb2 = new JoystickButton(xbox, 2);
+	/*B - used to toggle solenoid*/	
+	public Button xb2 = new JoystickButton(xbox, 2);
 	
-	/*X*/	public Button xb3 = new JoystickButton(xbox, 3);
+	/*X - used to turn off solenoid*/	
+	public Button xb3 = new JoystickButton(xbox, 3);
 	
-	/*Y*/	public Button xb4 = new JoystickButton(xbox, 4);
+	/*Y - used to control servo*/	
+	public Button xb4 = new JoystickButton(xbox, 4);
 
-	/*lBump*/	public Button xb5 = new JoystickButton(xbox, 5);
+	/*lBump - used to manual run launch motors fwd*/	
+	public Button xb5 = new JoystickButton(xbox, 5);
 	
-	/*rBump*/	public Button xb6 = new JoystickButton(xbox, 6);
+	/*rBump - used to manual run launch motors intake*/	
+	public Button xb6 = new JoystickButton(xbox, 6);
 	
-	/*back*/	public Button xb7 = new JoystickButton(xbox, 7);
+	/*back - used to manual do PIDTurn*/	
+	public Button xb7 = new JoystickButton(xbox, 7);
 	
-	/*start*/	public Button xb8 = new JoystickButton(xbox, 8);
+	/*start - used to manual do PIDAngle*/	
+	public Button xb8 = new JoystickButton(xbox, 8);
 	
+	/*lStickClick - NO USE*/
+	public Button xb9 = new JoystickButton(xbox, 9);
 	
+	/*rStickClick - NO USE*/
+	public Button xb10 = new JoystickButton(xbox, 10);
 	
 	public OI(){
 		
