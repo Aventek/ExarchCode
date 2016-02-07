@@ -3,8 +3,10 @@ package org.usfirst.frc.team3019.robot.subsystems;
 import org.usfirst.frc.team3019.robot.RobotMap;
 import org.usfirst.frc.team3019.robot.commands.Launch;
 
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Launcher extends Subsystem {
@@ -14,6 +16,7 @@ public class Launcher extends Subsystem {
     Talon leftLaunch;
     Talon rightLaunch;
     Servo falconPunch;
+    public AnalogPotentiometer anglePot;
     double servoState;
 
     public Launcher() {
@@ -28,6 +31,9 @@ public class Launcher extends Subsystem {
     	//Motors used in angling launching mechanism
     	angler = new Talon(RobotMap.launchAnglerPWM);
     	
+    	//Potentiometer used to measure angle of shooter
+    	anglePot = new AnalogPotentiometer(3,1080,0);
+    	
     	//invert motors for symmetry
     	rightLaunch.setInverted(true);
     	angler.setInverted(true);
@@ -39,10 +45,10 @@ public class Launcher extends Subsystem {
     }
     
 //DO: give the angling motor a speed to rotate(for angling mechanism)
-    public void angleLauncher(double angle){
+    public void angleLauncher(double speed){
 
     	//will rotate to a given angle
-    	angler.set(angle);
+    	angler.set(speed);
     
     }
     
@@ -68,5 +74,15 @@ public class Launcher extends Subsystem {
     	falconPunch.set(servoState);
     
     }
+
+	public void selfLaunch() {
+		
+		launch(1);
+		Timer.delay(2);
+		falconPunch();
+		Timer.delay(1);
+		launch(0);
+		
+	}
 
 }

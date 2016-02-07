@@ -1,12 +1,7 @@
 
 package org.usfirst.frc.team3019.robot;
-
-import org.usfirst.frc.team3019.robot.subsystems.DriveTrain;
-import org.usfirst.frc.team3019.robot.subsystems.Launcher;
-import org.usfirst.frc.team3019.robot.subsystems.MXPBreakout;
-import org.usfirst.frc.team3019.robot.subsystems.PIDDrive;
-import org.usfirst.frc.team3019.robot.subsystems.Pneumatics;
-import org.usfirst.frc.team3019.robot.utilities.DriveState;
+import org.usfirst.frc.team3019.robot.subsystems.*;
+import org.usfirst.frc.team3019.robot.utilities.*;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -32,13 +27,15 @@ public class Robot extends IterativeRobot {
 
 //instantiate all subsystems
 	public static DriveTrain driveTrain;
-	public static PIDDrive PIDdrive;
+	public static PIDDriving PIDDrive;
+	public static PIDAngling PIDAngle;
 	public static MXPBreakout mxpBreakout;
 	public static Pneumatics pneumatics;
 	public static Launcher launcher;
 	public static OI oi;
 	
 	public static DriveState state = DriveState.JOYSTICK;
+	public static CompressorState compressorState = CompressorState.OFF;
 	
 //autonomous command (not in use)
     Command autonomousCommand;
@@ -58,7 +55,8 @@ public class Robot extends IterativeRobot {
 		pneumatics = new Pneumatics();
 		mxpBreakout = new MXPBreakout();
 		launcher = new Launcher();
-		PIDdrive = new PIDDrive(0.8, 0.0, 0.0,0);
+		PIDDrive = new PIDDriving(0.8, 0.0, 0.0, 0);
+		PIDAngle = new PIDAngling(0.8, 0.0, 0.0, 0);
 		oi = new OI();
 		
     }
@@ -88,6 +86,9 @@ public class Robot extends IterativeRobot {
     	
     	//put current driveState in smartDash
     	SmartDashboard.putString("driveState", "" + state);
+    	
+    	//put pot value in smartDash
+    	SmartDashboard.putNumber("potReading",Robot.launcher.anglePot.get());
     	
     	
 //VISION PROCESSING

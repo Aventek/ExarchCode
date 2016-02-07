@@ -1,7 +1,6 @@
 package org.usfirst.frc.team3019.robot;
 
-import org.usfirst.frc.team3019.robot.commands.Compress;
-import org.usfirst.frc.team3019.robot.commands.PIDTurn;
+import org.usfirst.frc.team3019.robot.commands.*;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -27,14 +26,35 @@ public class OI {
 	
 	/*rBump*/	public Button xb6 = new JoystickButton(xbox, 6);
 	
+	/*back*/	public Button xb7 = new JoystickButton(xbox, 7);
+	
+	/*start*/	public Button xb8 = new JoystickButton(xbox, 8);
+	
 	
 	
 	public OI(){
 		
-		xb1.whenPressed(new PIDTurn());
-		xb3.whenPressed(new Compress("forward"));
-		xb4.whenPressed(new Compress("reverse"));
-		xb5.whenPressed(new Compress("off"));
+		if(RobotMap.useAutoAlign){
+			xb1.whenPressed(new AutoAim());
+		}
+		
+		if(RobotMap.usePID){
+		//PID commands
+		xb7.whenPressed(new PIDTurn());
+		xb8.whenPressed(new PIDAngle());
+		}
+		
+		if(RobotMap.useCompressor){
+		//Compressor commands
+		xb2.whenPressed(new Compress("toggle"));
+		xb3.whenPressed(new Compress("off"));
+		
+		}
+		
+		if(RobotMap.usePuncher){
+		//launch servo command
+		xb4.whenPressed(new FalconPunch());
+		}
 		
 	}
 }

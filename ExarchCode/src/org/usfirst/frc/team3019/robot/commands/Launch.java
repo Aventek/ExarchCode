@@ -5,9 +5,15 @@ import org.usfirst.frc.team3019.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class Launch extends Command {
+	
+	Boolean autoshoot;
 
     public Launch() {
          requires(Robot.launcher);
+    }
+    
+    public Launch(Boolean autoShoot){
+    	this.autoshoot = autoShoot;
     }
 
     protected void initialize() {
@@ -19,12 +25,16 @@ public class Launch extends Command {
     	if(Robot.oi.xb1.get()){
     		
     		//when button A is held down run motors for launching
-    		Robot.launcher.launch(-1);
+    		Robot.launcher.launch(1);
     		
     	}else if(Robot.oi.xb6.get()){
     		
     		//when right trigger is held down run motors for intake
     		Robot.launcher.launch(0.4);
+    		
+    	}else if(autoshoot){
+    		
+    		Robot.launcher.selfLaunch();
     		
     	}else{
     		
@@ -47,13 +57,6 @@ public class Launch extends Command {
     	}else{
     		//stop angling
     		Robot.launcher.angleLauncher(0);
-    	
-    	}
-    	
-    	//toggle state of servo
-    	if(Robot.oi.xb4.get()){
-    	
-    		Robot.launcher.falconPunch();
     	
     	}
     	

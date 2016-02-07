@@ -4,13 +4,16 @@ import org.usfirst.frc.team3019.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class PIDDrive extends PIDSubsystem {
+public class PIDDriving extends PIDSubsystem {
 
 	//instantiate objects used
 	NetworkTable table;
 	public static double P;
+	
+	public double initialYaw;
+	public double initialAzimuth;
+	public double deltaYaw;
     
 	/**
 	 * 
@@ -19,23 +22,20 @@ public class PIDDrive extends PIDSubsystem {
 	 * @param D D term for the pid
 	 * @param setPoint the setpoint for the pid loop
 	 */
-    public PIDDrive(double P, double I, double D,double setPoint) {
+    public PIDDriving(double P, double I, double D,double setPoint) {
     
     	super(P,I,D);
     	
     	//retrieve network table put up by TowerTracker jar
     	table = NetworkTable.getTable("TowerTracker");
-    	
-    	//focus PID info
-    	double Current = SmartDashboard.getNumber("azimuth",0);
-    	Robot.mxpBreakout.spigyro.reset();
-    	setSetpoint(Current);
-    	setInputRange(-25, 25);
+
+    	setSetpoint(0);
+//    	setInputRange(-25, 25);
     	setAbsoluteTolerance(1);
     	setOutputRange(-1, 1);
     
     }
-    public PIDDrive(double P, double I, double D) {
+    public PIDDriving(double P, double I, double D) {
 		// TODO Auto-generated constructor stub
     	this(P,I,D,0);
 	}
@@ -45,9 +45,10 @@ public class PIDDrive extends PIDSubsystem {
  
 //DO: sets the correct input to be used for PID Driving 
     protected double returnPIDInput() {
-    
+    	
+    	//this is what we want to be zero
     	//input for PID System is the azimuthal ( angle off from center/forward in horizontal aspect)
-    	return Robot.mxpBreakout.spigyro.getAngle();
+    	return initialAzimuth + deltaYaw;
     
     }
     
