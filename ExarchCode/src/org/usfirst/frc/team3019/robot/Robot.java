@@ -1,5 +1,6 @@
 
 package org.usfirst.frc.team3019.robot;
+import org.usfirst.frc.team3019.robot.commands.*;
 import org.usfirst.frc.team3019.robot.subsystems.*;
 import org.usfirst.frc.team3019.robot.utilities.*;
 
@@ -8,6 +9,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
@@ -34,11 +36,14 @@ public class Robot extends IterativeRobot {
 	public static Launcher launcher;
 	public static OI oi;
 	
+//using enumerations to control and switch states, and setting default states
 	public static DriveState driveState = DriveState.JOYSTICK;
-	public static CompressorState compressorState = CompressorState.OFF;
+	public static SolenoidState solenoidState = SolenoidState.OFF;
 	
 //autonomous command (not in use)
     Command autonomousCommand;
+    
+    SendableChooser chooser1;
     
     public Robot() {
 		
@@ -46,22 +51,46 @@ public class Robot extends IterativeRobot {
 
     public void robotInit() {
     	
+    	//instantiate all necessary items
+    	instantiateDashButtons();
+    	instantiateNetworkTable();
+    	instantiateSubs();
+		
+    	//create OI last so buttons can do commands
+		oi = new OI();
+		
+    }
+    
+    private void instantiateNetworkTable() {
+    	
     	//creating networktable for towertracking and putting testString
     	table = NetworkTable.getTable("TowerTracker");
     	table.putString("TEST", "isRunning");
+		
+	}
+
+	private void instantiateDashButtons() {
+		
+		SmartDashboard.putData("AutoAim", new AutoAim());
+		SmartDashboard.putData("PIDTurn", new PIDTurn());
+		SmartDashboard.putData("PIDAngle", new PIDAngle());
+		SmartDashboard.putData("ToggleSolenoid",new Compress());
+		SmartDashboard.putData("ServoPunch", new FalconPunch());
     	
-    	//creating all instances of subsystems
-		driveTrain = new DriveTrain();
+	}
+
+	private void instantiateSubs() {
+    	
+    	driveTrain = new DriveTrain();
 		pneumatics = new Pneumatics();
 		mxpBreakout = new MXPBreakout();
 		launcher = new Launcher();
 		PIDDrive = new PIDDriving(0.8, 0.0, 0.0, 0);
 		PIDAngle = new PIDAngling(0.8, 0.0, 0.0, 0);
-		oi = new OI();
 		
-    }
-    
-    public void disabledInit(){
+	}
+
+	public void disabledInit(){
 
     }
 	
@@ -83,33 +112,40 @@ public class Robot extends IterativeRobot {
     }
 
     public void teleopPeriodic() {
+    
+    	visionProcessing();
+    	dashUpdate();
+        
+        Scheduler.getInstance().run(); 
+    }
+   
+    private void dashUpdate() {
     	
-    	//put current driveState in smartDash
+    	//putting azimuthal to SmartDash
+        SmartDashboard.putNumber("azimuth", RobotMap.angleOff);
+        
+        //put current driveState in smartDash
     	SmartDashboard.putString("driveState", "" + driveState);
     	
     	//put pot value in smartDash
     	SmartDashboard.putNumber("potReading",Robot.launcher.anglePot.get());
     	
+	}
+
+	private void visionProcessing() {
     	
-//VISION PROCESSING
     	SmartDashboard.putNumber("distance", table.getNumber("VISdistance", 0));
-        double angleOff;
         
         //fixing angleOff to be relative to forwards
         if(table.getNumber("VISazimuth", 0) > 180){
-        	angleOff = 360 - table.getNumber("VISazimuth", 0);
+        	RobotMap.angleOff = 360 - table.getNumber("VISazimuth", 0);
         }else{
-        	angleOff = -table.getNumber("VISazimuth", 0);
+        	RobotMap.angleOff = -table.getNumber("VISazimuth", 0);
         }
-        
-        //putting azimuthal to SmartDash
-        SmartDashboard.putNumber("azimuth", angleOff);
-        
-        Scheduler.getInstance().run(); 
+		
+	}
 
-    }
-   
-    public void testPeriodic() {
+	public void testPeriodic() {
         LiveWindow.run();
         Scheduler.getInstance().run();
     }

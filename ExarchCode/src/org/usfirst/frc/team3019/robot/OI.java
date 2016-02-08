@@ -39,34 +39,41 @@ public class OI {
 	/*start - used to manual do PIDAngle*/	
 	public Button xb8 = new JoystickButton(xbox, 8);
 	
-	/*lStickClick - NO USE*/
+	/*lStickClick - NOT USED*/
 	public Button xb9 = new JoystickButton(xbox, 9);
 	
-	/*rStickClick - NO USE*/
+	/*rStickClick - NOT USED*/
 	public Button xb10 = new JoystickButton(xbox, 10);
 	
 	public OI(){
 		
 		if(RobotMap.useAutoAlign){
+		
+			//Pressing A does the autoAiming sequence
 			xb1.whenPressed(new AutoAim());
+		
 		}
 		
 		if(RobotMap.usePID){
-		//PID commands
-		xb7.whenPressed(new PIDTurn());
-		xb8.whenPressed(new PIDAngle());
+		
+			//PID commands
+			xb7.whenPressed(new PIDTurn());
+			xb8.whenPressed(new PIDAngle());
+		
 		}
 		
 		if(RobotMap.useCompressor){
-		//Compressor commands
-		xb2.whenPressed(new Compress("toggle"));
-		xb3.whenPressed(new Compress("off"));
+		
+			//Compressor commands
+			xb2.whenPressed(new Compress());
 		
 		}
 		
 		if(RobotMap.usePuncher){
-		//launch servo command
-		xb4.whenPressed(new FalconPunch());
+		
+			//launch servo command
+			xb4.whenPressed(new FalconPunch());
+		
 		}
 		
 	}

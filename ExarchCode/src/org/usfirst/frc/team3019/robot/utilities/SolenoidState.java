@@ -1,5 +1,5 @@
 package org.usfirst.frc.team3019.robot.utilities;
 
-public enum CompressorState {
+public enum SolenoidState {
 	FORWARD, REVERSE, OFF;
 }

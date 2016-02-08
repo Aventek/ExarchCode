@@ -1,7 +1,7 @@
 package org.usfirst.frc.team3019.robot.commands;
 
 import org.usfirst.frc.team3019.robot.Robot;
-import org.usfirst.frc.team3019.robot.utilities.CompressorState;
+import org.usfirst.frc.team3019.robot.utilities.SolenoidState;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -9,65 +9,35 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Compress extends Command {
 	
 	//constants needed
-	String solenoidState = "off";
-	String solenoidInstruction;
+	Boolean solenoidState = true;
 	Boolean isDone = false;
 
     public Compress() {
          requires(Robot.pneumatics);
     }
 
-    public Compress(String string) {
-		solenoidInstruction = string;
-	}
-
 	protected void initialize() {
     	
-    	if(solenoidInstruction == "toggle"){
+    	//if fwd then set to fwd
+    	if(solenoidState){
     		
-    		if(solenoidState == "forward"){
-    			
-    			Robot.compressorState = CompressorState.REVERSE;
-    			
-    		}else if(solenoidState == "reverse"){
-    			
-    			Robot.compressorState = CompressorState.FORWARD;
-    			
-    		}
-    	}else if(solenoidInstruction == "off"){
+    		Robot.pneumatics.soliForward();
+    		Robot.solenoidState = SolenoidState.FORWARD;
     		
-    		Robot.compressorState = CompressorState.OFF;
+    	}else if(!solenoidState){
+    		
+    		Robot.pneumatics.soliReverse();
+    		Robot.solenoidState = SolenoidState.REVERSE;
+    		
+    	}else{
+    		
+    		Robot.pneumatics.soliOff();
+    		Robot.solenoidState = SolenoidState.OFF;
     		
     	}
     	
-    	switch (Robot.compressorState) {
-			case FORWARD:
-				
-				// if told forward, solenoid forward
-	    		Robot.pneumatics.soliForward();
-	    		SmartDashboard.putString("PneumaticsStatus", "FWD");
-	    		
-				break;
-			
-			case REVERSE:
-				
-				// if told reverse, solenoid reverse
-	    		Robot.pneumatics.soliReverse();
-	    		SmartDashboard.putString("PneumaticsStatus", "REV");
-	    		
-				break;
-				
-			case OFF:
-				
-				// if told off, solenoid off    	
-	    		Robot.pneumatics.soliOff();
-	    		SmartDashboard.putString("PneumaticsStatus", "OFF");
-	    		
-				break;
-				
-		default:
-			break;
-		}
+    	//toggle solenoid state
+    	solenoidState = !solenoidState;
     	
     	//after telling solenoid what to do, exit command
     	isDone = true;

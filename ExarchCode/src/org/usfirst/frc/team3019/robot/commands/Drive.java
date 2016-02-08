@@ -7,9 +7,6 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class Drive extends Command{
 	
-	//use driveNerf from robotmap
-	double driveNerf = RobotMap.driveNerf;
-	
 	public Drive() {
 		requires(Robot.driveTrain);
 	}
@@ -23,7 +20,9 @@ public class Drive extends Command{
 		
 		//Simple arcade drive from lStick axes if not doing PID
 		if(Robot.driveState == DriveState.JOYSTICK){
-			Robot.driveTrain.arcadeDrive(-Robot.oi.xbox.getY() * driveNerf , -Robot.oi.xbox.getX() * driveNerf);
+			
+			Robot.driveTrain.arcadeDrive(-Robot.oi.xbox.getY() * RobotMap.driveNerf , -Robot.oi.xbox.getX() * RobotMap.driveNerf);
+			
 		}
 		
 	}

@@ -11,13 +11,15 @@ public class RobotMap {
 	 public static final boolean runArms = false;
 	 public static float kP = 0.03f;
 	 public static double driveNerf = 1;
+	 public static double angleOff;
 	 
+//systems in use, change to pos or neg here
 	 public static final boolean useCompressor = false;
 	 public static final boolean usePID = true;
 	 public static final boolean usePuncher = true;
 	 public static final boolean useAutoAlign = false;
 	 
-	 //pwm ports
+//pwm ports
      public static final int leftDrivePWM = 0;
      public static final int rightDrivePWM = 1;
      
@@ -26,5 +28,7 @@ public class RobotMap {
      
      public static final int launchAnglerPWM = 4;
      public static final int launchServoPWM = 5;
+     
+     
     
 }
