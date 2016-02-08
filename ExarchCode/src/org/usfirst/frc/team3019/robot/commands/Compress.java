@@ -4,7 +4,6 @@ import org.usfirst.frc.team3019.robot.Robot;
 import org.usfirst.frc.team3019.robot.utilities.SolenoidState;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Compress extends Command {
 

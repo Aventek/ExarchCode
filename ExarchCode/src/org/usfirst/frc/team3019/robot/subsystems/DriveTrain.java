@@ -1,9 +1,8 @@
 
 package org.usfirst.frc.team3019.robot.subsystems;
 
-import org.usfirst.frc.team3019.robot.Robot;
 import org.usfirst.frc.team3019.robot.RobotMap;
-import org.usfirst.frc.team3019.robot.commands.*;
+import org.usfirst.frc.team3019.robot.commands.Drive;
 
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
