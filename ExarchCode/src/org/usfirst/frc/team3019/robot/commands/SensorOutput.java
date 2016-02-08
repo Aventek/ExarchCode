@@ -10,10 +10,11 @@ public class SensorOutput extends Command {
 
 	double first = 0;
 	double corrected = 0;
+
 	public SensorOutput() {
 		requires(Robot.mxpBreakout);
 	}
-	
+
 	@Override
 	protected void initialize() {
 		first = Robot.mxpBreakout.getYaw();
@@ -22,14 +23,14 @@ public class SensorOutput extends Command {
 	@Override
 	protected void execute() {
 		corrected = first - Robot.mxpBreakout.getYaw();
-		//print all data from breakout board to SmartDash
+		// print all data from breakout board to SmartDash
 		SmartDashboard.putData("imu", Robot.mxpBreakout.getImu());
 		SmartDashboard.putNumber("pitch", Robot.mxpBreakout.getPitch());
 		SmartDashboard.putNumber("yaw", corrected);
 		SmartDashboard.putNumber("roll", Robot.mxpBreakout.getRoll());
 		SmartDashboard.putNumber("spiAngle", MXPBreakout.spigyro.getAngle());
 		SmartDashboard.putNumber("pressure", Robot.mxpBreakout.getPressure());
-		
+
 	}
 
 	@Override

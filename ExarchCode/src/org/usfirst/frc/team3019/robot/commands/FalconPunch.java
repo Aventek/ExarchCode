@@ -9,27 +9,27 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class FalconPunch extends Command {
 
-    public FalconPunch() {
-    	requires(Robot.launcher);
-    }
+	public FalconPunch() {
+		requires(Robot.launcher);
+	}
 
-    protected void initialize() {
-    	
-    	//toggle state of servo
-    		Robot.launcher.falconPunch();
- 
-    }
+	protected void initialize() {
 
-    protected void execute() {
-    }
+		// toggle state of servo
+		Robot.launcher.falconPunch();
 
-    protected boolean isFinished() {
-        return true;
-    }
+	}
 
-    protected void end() {
-    }
+	protected void execute() {
+	}
 
-    protected void interrupted() {
-    }
+	protected boolean isFinished() {
+		return true;
+	}
+
+	protected void end() {
+	}
+
+	protected void interrupted() {
+	}
 }
