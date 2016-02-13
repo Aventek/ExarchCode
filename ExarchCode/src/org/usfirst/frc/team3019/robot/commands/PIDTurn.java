@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class PIDTurn extends Command {
 
 	public PIDTurn() {
-		requires(Robot.PIDDrive);
+		requires(Robot.PIDDriving);
 		requires(Robot.mxpBreakout);
 	}
 
@@ -20,11 +20,11 @@ public class PIDTurn extends Command {
 		Robot.driveState = DriveState.PID;
 
 		// take initial angle values
-		Robot.PIDDrive.initialYaw = Robot.mxpBreakout.getYaw();
-		Robot.PIDDrive.initialAzimuth = SmartDashboard.getNumber("azimuthal", 0);
+		Robot.PIDDriving.initialYaw = Robot.mxpBreakout.getYaw();
+		Robot.PIDDriving.initialAzimuth = SmartDashboard.getNumber("azimuthal", 0);
 
 		// starts aiming process
-		Robot.PIDDrive.enable();
+		Robot.PIDDriving.enable();
 
 	}
 
@@ -32,7 +32,7 @@ public class PIDTurn extends Command {
 	protected void execute() {
 
 		// get the change in yaw since starting PIDDrive
-		Robot.PIDDrive.deltaYaw = Robot.mxpBreakout.getYaw() - Robot.PIDDrive.initialYaw;
+		Robot.PIDDriving.deltaYaw = Robot.mxpBreakout.getYaw() - Robot.PIDDriving.initialYaw;
 
 	}
 
@@ -40,7 +40,7 @@ public class PIDTurn extends Command {
 	protected boolean isFinished() {
 
 		// stops correcting if within 0.3 degrees of target forward
-		double error = Robot.PIDDrive.initialAzimuth + Robot.PIDDrive.deltaYaw;
+		double error = Robot.PIDDriving.initialAzimuth + Robot.PIDDriving.deltaYaw;
 		return Math.abs(error) < .3f;
 
 	}
@@ -51,7 +51,7 @@ public class PIDTurn extends Command {
 		// when done aiming, stop motors, disable PID, and set drivestate back
 		// to Joystick
 		Robot.driveTrain.arcadeDrive(0, 0);
-		Robot.PIDDrive.disable();
+		Robot.PIDDriving.disable();
 		Robot.driveState = DriveState.JOYSTICK;
 
 		// Robot.launcher.hasAligned = true;

@@ -20,6 +20,8 @@ public class Launch extends Command {
 	}
 
 	protected void execute() {
+		
+		Robot.launcher.potAngle = Robot.launcher.anglePot.get() / 3;
 
 		// spinning launcher motors
 		if (Robot.oi.xb5.get()) {
@@ -30,13 +32,9 @@ public class Launch extends Command {
 		} else if (Robot.oi.xb6.get()) {
 
 			// when right trigger is held down run motors for intake
-			Robot.launcher.launch(0.4);
+			Robot.launcher.launch(-0.4);
 
-		} else if (autoshoot) {
-
-			Robot.launcher.selfLaunch();
-
-		} else {
+		}  else {
 
 			// when neither are held down dont run motors
 			Robot.launcher.launch(0);

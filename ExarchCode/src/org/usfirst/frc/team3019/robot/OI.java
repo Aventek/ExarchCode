@@ -46,14 +46,7 @@ public class OI {
 	public Button xb10 = new JoystickButton(xbox, 10);
 
 	public OI() {
-
-		if (RobotMap.useAutoAlign) {
-
-			// Pressing A does the autoAiming sequence
-			xb1.whenPressed(new AutoAim());
-
-		}
-
+		
 		if (RobotMap.usePID) {
 
 			// PID commands

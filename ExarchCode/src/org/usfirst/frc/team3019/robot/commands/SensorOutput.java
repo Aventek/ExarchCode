@@ -29,7 +29,6 @@ public class SensorOutput extends Command {
 		SmartDashboard.putNumber("yaw", corrected);
 		SmartDashboard.putNumber("roll", Robot.mxpBreakout.getRoll());
 		SmartDashboard.putNumber("spiAngle", MXPBreakout.spigyro.getAngle());
-		SmartDashboard.putNumber("pressure", Robot.mxpBreakout.getPressure());
 
 	}
 
