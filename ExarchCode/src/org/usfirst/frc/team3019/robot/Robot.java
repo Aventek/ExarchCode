@@ -1,9 +1,22 @@
 
 package org.usfirst.frc.team3019.robot;
 
-import org.usfirst.frc.team3019.robot.commands.*;
-import org.usfirst.frc.team3019.robot.subsystems.*;
-import org.usfirst.frc.team3019.robot.utilities.*;
+import org.usfirst.frc.team3019.robot.commands.Solenoids;
+import org.usfirst.frc.team3019.robot.commands.FalconPunch;
+import org.usfirst.frc.team3019.robot.commands.PIDAngle;
+import org.usfirst.frc.team3019.robot.commands.PIDTurn;
+import org.usfirst.frc.team3019.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team3019.robot.subsystems.Launcher;
+import org.usfirst.frc.team3019.robot.subsystems.Lifter;
+import org.usfirst.frc.team3019.robot.subsystems.MXPBreakout;
+import org.usfirst.frc.team3019.robot.subsystems.PIDAngling;
+import org.usfirst.frc.team3019.robot.subsystems.PIDDriving;
+import org.usfirst.frc.team3019.robot.subsystems.Pneumatics;
+import org.usfirst.frc.team3019.robot.utilities.AnglerState;
+import org.usfirst.frc.team3019.robot.utilities.DriveState;
+import org.usfirst.frc.team3019.robot.utilities.LauncherState;
+import org.usfirst.frc.team3019.robot.utilities.ServoState;
+import org.usfirst.frc.team3019.robot.utilities.SolenoidState;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -28,6 +41,7 @@ public class Robot extends IterativeRobot {
 
 	// instantiate all subsystems
 	public static DriveTrain driveTrain;
+	public static Lifter lifter;
 	public static PIDDriving PIDDriving;
 	public static PIDAngling PIDAngling;
 	public static MXPBreakout mxpBreakout;
@@ -37,9 +51,12 @@ public class Robot extends IterativeRobot {
 
 	// using enumerations to control and switch states, and setting default
 	// states
-	public static DriveState driveState = DriveState.JOYSTICK;
+	public static LauncherState launcherState = LauncherState.STILL;
+	public static AnglerState anglerState = AnglerState.STILL;
+	public static DriveState driveState = DriveState.STILL;
 	public static SolenoidState solenoidState = SolenoidState.OFF;
-
+	public static ServoState servoState = ServoState.RETRACTED;
+	
 	// autonomous command (not in use)
 	Command autonomousCommand;
 
@@ -73,7 +90,7 @@ public class Robot extends IterativeRobot {
 		
 		SmartDashboard.putData("PIDTurn", new PIDTurn());
 		SmartDashboard.putData("PIDAngle", new PIDAngle());
-		SmartDashboard.putData("ToggleSolenoid", new Compress());
+		SmartDashboard.putData("ToggleSolenoid", new Solenoids());
 		SmartDashboard.putData("ServoPunch", new FalconPunch());
 
 	}
@@ -84,6 +101,7 @@ public class Robot extends IterativeRobot {
 		pneumatics = new Pneumatics();
 		mxpBreakout = new MXPBreakout();
 		launcher = new Launcher();
+		lifter = new Lifter();
 		PIDDriving = new PIDDriving(0.8, 0.0, 0.0, 0);
 		PIDAngling = new PIDAngling(0.8, 0.0, 0.0, 0);
 
@@ -121,12 +139,16 @@ public class Robot extends IterativeRobot {
 
 	private void dashUpdate() {
 
-		SmartDashboard.putNumber("servoPosition", Robot.launcher.falconPunch.get());
+		SmartDashboard.putNumber("servoPosition", Robot.launcher.pusher.get());
 		// putting azimuthal to SmartDash
 		SmartDashboard.putNumber("azimuth", RobotMap.angleOff);
 
-		// put current driveState in smartDash
+		// put current states in smartDash
 		SmartDashboard.putString("driveState", "" + driveState);
+		SmartDashboard.putString("anglerState", "" + anglerState);
+		SmartDashboard.putString("launcherState", "" + launcherState);
+		SmartDashboard.putString("solenoidState", "" + solenoidState);
+		SmartDashboard.putString("servoState", "" + servoState);
 
 		// put pot value in smartDash
 		SmartDashboard.putNumber("potReading", Robot.launcher.potAngle);

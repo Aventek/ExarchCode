@@ -5,19 +5,19 @@ import org.usfirst.frc.team3019.robot.utilities.SolenoidState;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class Compress extends Command {
+public class Solenoids extends Command {
 
 	// constants needed
 	Boolean solenoidState = true;
 	Boolean isDone = false;
 
-	public Compress() {
+	public Solenoids() {
 		requires(Robot.pneumatics);
 	}
 
 	protected void initialize() {
 
-		// if fwd then set to fwd
+		// if depending on solenoid State, change solenoid input
 		if (solenoidState) {
 
 			Robot.pneumatics.soliForward();

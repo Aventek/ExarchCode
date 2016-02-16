@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3019.robot.commands;
 
 import org.usfirst.frc.team3019.robot.Robot;
+import org.usfirst.frc.team3019.robot.utilities.AnglerState;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -12,9 +13,12 @@ public class PIDAngle extends Command {
 
 	public PIDAngle() {
 		requires(Robot.launcher);
+		requires(Robot.PIDAngling);
 	}
 
 	protected void initialize() {
+		
+		Robot.anglerState = AnglerState.PID;
 
 		// retrieve distance from target
 		Robot.PIDAngling.distance = SmartDashboard.getNumber("distance", 0);
@@ -39,6 +43,9 @@ public class PIDAngle extends Command {
 	}
 
 	protected void end() {
+		
+		Robot.anglerState = AnglerState.STILL;
+		
 	}
 
 	protected void interrupted() {

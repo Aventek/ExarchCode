@@ -21,13 +21,16 @@ public class RobotMap {
 	public static final boolean useAutoAlign = false;
 
 	// pwm ports
-	public static final int leftDrivePWM = 0;
-	public static final int rightDrivePWM = 1;
+	public static final int liftAnglerPWM = 0;
+	public static final int liftAngler2PWM = 1;
+	
+	public static final int leftDrivePWM = 6;
+	public static final int rightDrivePWM = 5;
 
 	public static final int leftLaunchPWM = 2;
 	public static final int rightLaunchPWM = 3;
 
 	public static final int launchAnglerPWM = 4;
-	public static final int launchServoPWM = 5;
+	public static final int launchServoPWM = 7;
 
 }

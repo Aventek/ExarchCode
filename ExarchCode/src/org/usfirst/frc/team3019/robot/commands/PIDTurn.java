@@ -52,7 +52,7 @@ public class PIDTurn extends Command {
 		// to Joystick
 		Robot.driveTrain.arcadeDrive(0, 0);
 		Robot.PIDDriving.disable();
-		Robot.driveState = DriveState.JOYSTICK;
+		Robot.driveState = DriveState.STILL;
 
 		// Robot.launcher.hasAligned = true;
 	}

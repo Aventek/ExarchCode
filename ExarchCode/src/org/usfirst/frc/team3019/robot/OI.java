@@ -15,34 +15,41 @@ public class OI {
 	/* xbox controller */
 	public Joystick xbox = new Joystick(0);
 
-	/* A - used for AutoAim */
+	/*AXES USED
+	 * 
+	 * LEFT STICK
+	 * 	X-AXIS: TURNING FOR ARCADE
+	 * 	Y-AXIS: FWD/REV FOR ARCADE
+	 * 
+	 * RIGHT STICK
+	 * 	Y-AXIS: RAISING PISTON ARMS
+	 * 
+	 */
+	
+	/*BUTTONS USED
+	 * 
+	 * 1 A     -used for toggling solenoid
+	 * 2 B     -used to angle down
+	 * 3 X     -used to angle up
+	 * 4 Y     -used to toggle servo
+	 * 5 lBump   -used to manual run launch motors fwd
+	 * 6 rBump   -used to manual run launch motors intake
+	 * 7 back    -used to manual do PIDTurn
+	 * 8 start   -used to manual do PIDAngle
+	 * 9 lClick  -NOT USED
+	 * 10 rClick -NOT USED
+	 * 
+	 */
+	
 	public Button xb1 = new JoystickButton(xbox, 1);
-
-	/* B - used to toggle solenoid */
 	public Button xb2 = new JoystickButton(xbox, 2);
-
-	/* X - used to turn off solenoid */
 	public Button xb3 = new JoystickButton(xbox, 3);
-
-	/* Y - used to control servo */
 	public Button xb4 = new JoystickButton(xbox, 4);
-
-	/* lBump - used to manual run launch motors fwd */
 	public Button xb5 = new JoystickButton(xbox, 5);
-
-	/* rBump - used to manual run launch motors intake */
 	public Button xb6 = new JoystickButton(xbox, 6);
-
-	/* back - used to manual do PIDTurn */
 	public Button xb7 = new JoystickButton(xbox, 7);
-
-	/* start - used to manual do PIDAngle */
 	public Button xb8 = new JoystickButton(xbox, 8);
-
-	/* lStickClick - NOT USED */
 	public Button xb9 = new JoystickButton(xbox, 9);
-
-	/* rStickClick - NOT USED */
 	public Button xb10 = new JoystickButton(xbox, 10);
 
 	public OI() {
@@ -58,7 +65,7 @@ public class OI {
 		if (RobotMap.useCompressor) {
 
 			// Compressor commands
-			xb2.whenPressed(new Compress());
+			xb1.whenPressed(new Solenoids());
 
 		}
 

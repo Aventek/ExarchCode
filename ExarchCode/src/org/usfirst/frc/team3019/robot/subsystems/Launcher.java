@@ -15,16 +15,15 @@ public class Launcher extends Subsystem {
 	Talon angler;
 	Talon leftLaunch;
 	Talon rightLaunch;
-	public Servo falconPunch;
+	public Servo pusher;
 	public AnalogPotentiometer anglePot;
-	double servoState;
 	public double potAngle;
 
 	public Launcher() {
 
 		// Servo to push ball into launcher
-		falconPunch = new Servo(RobotMap.launchServoPWM);
-		falconPunch.set(0.8);
+		pusher = new Servo(RobotMap.launchServoPWM);
+		pusher.set(0.8);
 
 		// Motors used for launching mechanism
 		leftLaunch = new Talon(RobotMap.leftLaunchPWM);
@@ -62,28 +61,21 @@ public class Launcher extends Subsystem {
 
 	}
 
-	// DO: uses servo to push ball into shooting mechanism
-	public void falconPunch() {
-
-		// make servo toggleable
-		if (falconPunch.get() == 1) {
-			servoState = 0.8;
-		} else if (falconPunch.get() == 0.8) {
-			servoState = 1;
-		}
-		// set servo to toggled state
-		falconPunch.set(servoState);
-
-	}
 
 	public void selfLaunch() {
 
 		launch(1);
 		Timer.delay(2);
-		falconPunch();
+		servoControl(1);
 		Timer.delay(1);
 		launch(0);
 
+	}
+
+	public void servoControl(double i) {
+		
+		pusher.set(i);
+		
 	}
 
 }

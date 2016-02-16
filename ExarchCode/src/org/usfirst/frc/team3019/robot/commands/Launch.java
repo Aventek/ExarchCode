@@ -1,19 +1,22 @@
 package org.usfirst.frc.team3019.robot.commands;
 
 import org.usfirst.frc.team3019.robot.Robot;
+import org.usfirst.frc.team3019.robot.utilities.AnglerState;
+import org.usfirst.frc.team3019.robot.utilities.LauncherState;
+import org.usfirst.frc.team3019.robot.utilities.ServoState;
 
 import edu.wpi.first.wpilibj.command.Command;
 
 public class Launch extends Command {
 
-	Boolean autoshoot;
+	String status;
 
 	public Launch() {
 		requires(Robot.launcher);
 	}
 
-	public Launch(Boolean autoShoot) {
-		this.autoshoot = autoShoot;
+	public Launch(String status) {
+		this.status = status;
 	}
 
 	protected void initialize() {
@@ -21,41 +24,61 @@ public class Launch extends Command {
 
 	protected void execute() {
 		
+		//normalize potentiometer angle from 1080 to 360 degrees
 		Robot.launcher.potAngle = Robot.launcher.anglePot.get() / 3;
 
 		// spinning launcher motors
 		if (Robot.oi.xb5.get()) {
 
-			// when button A is held down run motors for launching
-			Robot.launcher.launch(1);
+			// when lBump is held down run motors for launching
+			Robot.launcher.launch(-1);
+			Robot.launcherState = LauncherState.LAUNCH;
 
 		} else if (Robot.oi.xb6.get()) {
 
-			// when right trigger is held down run motors for intake
-			Robot.launcher.launch(-0.4);
+			// when rBump is held down run motors for intake
+			Robot.launcher.launch(0.4);
+			Robot.launcherState = LauncherState.INTAKE;
 
 		}  else {
 
 			// when neither are held down dont run motors
 			Robot.launcher.launch(0);
+			Robot.launcherState = LauncherState.STILL;
 
 		}
+		
+		if(Robot.anglerState != AnglerState.PID){
+			// activate angler
+			if (Robot.oi.xb2.get()) {
 
-		// activate angler
-		if (Robot.oi.xb2.get()) {
+				// when B is held down angle launcher down
+				Robot.launcher.angleLauncher(-.3);
+				Robot.anglerState = AnglerState.ANGLING_DOWN;
 
-			// when B is held down angle launcher down
-			Robot.launcher.angleLauncher(-.3);
+			} else if (Robot.oi.xb3.get()) {
 
-		} else if (Robot.oi.xb3.get()) {
+				// when X is held down, angle launcher up
+				Robot.launcher.angleLauncher(.6);
+				Robot.anglerState = AnglerState.ANGLING_UP;
 
-			// when X is held down, angle launcher up
-			Robot.launcher.angleLauncher(.6);
+			} else {
+				// stop angling
+				Robot.launcher.angleLauncher(0);
+				Robot.anglerState = AnglerState.STILL;
+			
+			}
+		}
+		
+		//control servo based on state
+		if(Robot.servoState == ServoState.EXTENDED){
+		
+			Robot.launcher.servoControl(1);
 
-		} else {
-			// stop angling
-			Robot.launcher.angleLauncher(0);
-
+		} else if(Robot.servoState == ServoState.RETRACTED){
+		
+			Robot.launcher.servoControl(.8);
+		
 		}
 
 	}
