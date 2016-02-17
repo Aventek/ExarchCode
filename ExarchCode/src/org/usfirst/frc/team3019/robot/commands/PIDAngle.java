@@ -17,7 +17,7 @@ public class PIDAngle extends Command {
 	}
 
 	protected void initialize() {
-		
+
 		Robot.anglerState = AnglerState.PID;
 
 		// retrieve distance from target
@@ -43,9 +43,9 @@ public class PIDAngle extends Command {
 	}
 
 	protected void end() {
-		
+
 		Robot.anglerState = AnglerState.STILL;
-		
+
 	}
 
 	protected void interrupted() {

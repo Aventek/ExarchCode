@@ -52,7 +52,7 @@ public class Launcher extends Subsystem {
 
 	}
 
-	// DO: set launch motors to spin and then set servo to firing position
+	// sets launch motors to spin and then set servo to firing position
 	public void launch(double speed) {
 
 		// setting launch motors
@@ -61,7 +61,8 @@ public class Launcher extends Subsystem {
 
 	}
 
-
+	// self launching sequence, runs motors, waits, extends servo, then waits
+	// another second and stops motors
 	public void selfLaunch() {
 
 		launch(1);
@@ -72,10 +73,11 @@ public class Launcher extends Subsystem {
 
 	}
 
+	// used to set position of servo
 	public void servoControl(double i) {
-		
+
 		pusher.set(i);
-		
+
 	}
 
 }

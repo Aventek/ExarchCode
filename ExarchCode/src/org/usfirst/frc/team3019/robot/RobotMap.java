@@ -29,7 +29,7 @@ public class RobotMap {
 
 	public static final int liftAnglerPWM = 4;
 	public static final int liftAngler2PWM = 5;
-	
+
 	public static final int launchAnglerPWM = 6;
 	public static final int launchServoPWM = 7;
 

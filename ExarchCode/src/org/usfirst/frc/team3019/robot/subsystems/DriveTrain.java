@@ -38,60 +38,40 @@ public class DriveTrain extends Subsystem {
 	// DO: Drive function using arcade drive (1 stick with twist to turn)
 	public void arcadeDrive(double moveValue, double rotateValue) {
 
-		//SET THE PROPER DRIVE STATE BASED ON CONTROL VALUES
-		if(moveValue > 0.1 && rotateValue > -0.1 && rotateValue < 0.1){
-			
+		// Set the proper drive state based on values passed in
+		if (moveValue > 0.1 && rotateValue > -0.1 && rotateValue < 0.1) {
 			Robot.driveState = DriveState.FORWARD;
-		
-		}else if(rotateValue > 0.1){
-			
+		} else if (rotateValue > 0.1) {
 			Robot.driveState = DriveState.TURNING_RIGHT;
-			
-		}else if(rotateValue < -0.1){
-			
+		} else if (rotateValue < -0.1) {
 			Robot.driveState = DriveState.TURNING_LEFT;
-			
-		}else if(moveValue < -0.1 && rotateValue > -0.1 && rotateValue < 0.1){
-			
+		} else if (moveValue < -0.1 && rotateValue > -0.1 && rotateValue < 0.1) {
 			Robot.driveState = DriveState.REVERSE;
-			
-		}else{
-			
+		} else {
 			Robot.driveState = DriveState.STILL;
-			
 		}
-		
+
 		drive.arcadeDrive(moveValue, rotateValue);
 
 	}
 
-	// DO: Drive function using tank drive (2 sticks, 1 left one right, each
+	// Drive function using tank drive (2 sticks, 1 left one right, each
 	// controlling one side of drivetrain)
 	public void tankDrive(double leftValue, double rightValue) {
 
-		//SET THE PROPER DRIVE STATE BASED ON PASSED IN VALUES
-		if(leftValue > 0.1 && rightValue > 0.1){
-			
+		// set the proper drive state based on values passed in
+		if (leftValue > 0.1 && rightValue > 0.1) {
 			Robot.driveState = DriveState.FORWARD;
-			
-		}else if(leftValue > 0.1 && rightValue < -0.1){
-			
+		} else if (leftValue > 0.1 && rightValue < -0.1) {
 			Robot.driveState = DriveState.TURNING_RIGHT;
-			
-		}else if(leftValue < -0.1 && rightValue > 0.1){
-			
+		} else if (leftValue < -0.1 && rightValue > 0.1) {
 			Robot.driveState = DriveState.TURNING_LEFT;
-			
-		}else if(leftValue < -0.1 && rightValue < -0.1){
-			
+		} else if (leftValue < -0.1 && rightValue < -0.1) {
 			Robot.driveState = DriveState.REVERSE;
-			
-		}else{
-			
+		} else {
 			Robot.driveState = DriveState.STILL;
-			
 		}
-		
+
 		drive.tankDrive(leftValue, rightValue);
 
 	}

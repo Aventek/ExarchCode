@@ -1,10 +1,10 @@
 
 package org.usfirst.frc.team3019.robot;
 
-import org.usfirst.frc.team3019.robot.commands.Solenoids;
 import org.usfirst.frc.team3019.robot.commands.FalconPunch;
 import org.usfirst.frc.team3019.robot.commands.PIDAngle;
 import org.usfirst.frc.team3019.robot.commands.PIDTurn;
+import org.usfirst.frc.team3019.robot.commands.Solenoids;
 import org.usfirst.frc.team3019.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team3019.robot.subsystems.Launcher;
 import org.usfirst.frc.team3019.robot.subsystems.Lifter;

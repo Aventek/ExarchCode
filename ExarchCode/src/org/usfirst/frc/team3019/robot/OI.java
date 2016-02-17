@@ -22,6 +22,7 @@ public class OI {
 	 * 	Y-AXIS: FWD/REV FOR ARCADE
 	 * 
 	 * RIGHT STICK
+	 *  X-AXIS: NOT USED
 	 * 	Y-AXIS: RAISING PISTON ARMS
 	 * 
 	 */
