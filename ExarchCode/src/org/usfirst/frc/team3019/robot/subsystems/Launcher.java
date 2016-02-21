@@ -5,6 +5,8 @@ import org.usfirst.frc.team3019.robot.commands.Launch;
 
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -12,9 +14,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Launcher extends Subsystem {
 
 	// instantiate all motor controllers and constants used
-	Talon angler;
-	Talon leftLaunch;
-	Talon rightLaunch;
+	VictorSP angler;
+	VictorSP leftLaunch;
+	VictorSP rightLaunch;
 	public Servo pusher;
 	public AnalogPotentiometer anglePot;
 	public double potAngle;
@@ -26,17 +28,18 @@ public class Launcher extends Subsystem {
 		pusher.set(0.8);
 
 		// Motors used for launching mechanism
-		leftLaunch = new Talon(RobotMap.leftLaunchPWM);
-		rightLaunch = new Talon(RobotMap.rightLaunchPWM);
+		leftLaunch = new VictorSP(RobotMap.leftLaunchPWM);
+		rightLaunch = new VictorSP(RobotMap.rightLaunchPWM);
 
 		// Motors used in angling launching mechanism
-		angler = new Talon(RobotMap.launchAnglerPWM);
+		angler = new VictorSP(RobotMap.launchAnglerPWM);
 
 		// Potentiometer used to measure angle of shooter
-		anglePot = new AnalogPotentiometer(3, 1080, -120);
+		anglePot = new AnalogPotentiometer(3, 1080, 0);
 
 		// invert motors for symmetry
 		angler.setInverted(true);
+		leftLaunch.setInverted(true);
 
 	}
 

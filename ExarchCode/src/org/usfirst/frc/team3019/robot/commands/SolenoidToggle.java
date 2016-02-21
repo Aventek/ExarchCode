@@ -1,21 +1,24 @@
 package org.usfirst.frc.team3019.robot.commands;
 
 import org.usfirst.frc.team3019.robot.Robot;
+import org.usfirst.frc.team3019.robot.RobotMap;
 import org.usfirst.frc.team3019.robot.utilities.SolenoidState;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class Solenoids extends Command {
+public class SolenoidToggle extends Command {
 
 	// constants needed
 	Boolean solenoidState = true;
 	Boolean isDone = false;
 
-	public Solenoids() {
+	public SolenoidToggle() {
 		requires(Robot.pneumatics);
 	}
 
 	protected void initialize() {
+		
+		RobotMap.numRan ++;
 
 		// if depending on solenoid State, change solenoid input
 		if (solenoidState) {

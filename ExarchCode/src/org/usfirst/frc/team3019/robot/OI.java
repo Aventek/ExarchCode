@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
 
+	
 	/* xbox controller */
 	public Joystick xbox = new Joystick(0);
 
@@ -63,10 +64,10 @@ public class OI {
 
 		}
 
-		if (RobotMap.useCompressor) {
+		if (RobotMap.usePneumatics) {
 
-			// Compressor commands
-			xb1.whenPressed(new Solenoids());
+			// Compressor 
+			xb1.whenPressed(new SolenoidToggle());
 
 		}
 

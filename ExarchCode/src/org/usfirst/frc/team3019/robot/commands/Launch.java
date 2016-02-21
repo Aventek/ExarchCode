@@ -24,17 +24,14 @@ public class Launch extends Command {
 
 	protected void execute() {
 		
-		//normalize potentiometer angle from 1080 to 360 degrees
-		Robot.launcher.potAngle = Robot.launcher.anglePot.get() / 3;
-
 		// spinning launcher motors
 		if (Robot.oi.xb5.get()) {
 			// when lBump is held down run motors for launching
-			Robot.launcher.launch(-1);
+			Robot.launcher.launch(1);
 			Robot.launcherState = LauncherState.LAUNCH;
 		} else if (Robot.oi.xb6.get()) {
 			// when rBump is held down run motors for intake
-			Robot.launcher.launch(0.4);
+			Robot.launcher.launch(-0.4);
 			Robot.launcherState = LauncherState.INTAKE;
 		}  else {
 			// when neither are held down dont run motors

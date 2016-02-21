@@ -25,6 +25,8 @@ public class DriveTrain extends Subsystem {
 		rightMotor = new Talon(RobotMap.rightDrivePWM);
 		leftMotor = new Talon(RobotMap.leftDrivePWM);
 
+		leftMotor.setInverted(true);
+		
 		// standard drive system
 		drive = new RobotDrive(leftMotor, rightMotor);
 
@@ -39,13 +41,13 @@ public class DriveTrain extends Subsystem {
 	public void arcadeDrive(double moveValue, double rotateValue) {
 
 		// Set the proper drive state based on values passed in
-		if (moveValue > 0.1 && rotateValue > -0.1 && rotateValue < 0.1) {
+		if (moveValue > 0.3 && rotateValue > -0.3 && rotateValue < 0.3) {
 			Robot.driveState = DriveState.FORWARD;
-		} else if (rotateValue > 0.1) {
+		} else if (rotateValue > 0.3) {
 			Robot.driveState = DriveState.TURNING_RIGHT;
-		} else if (rotateValue < -0.1) {
+		} else if (rotateValue < -0.3) {
 			Robot.driveState = DriveState.TURNING_LEFT;
-		} else if (moveValue < -0.1 && rotateValue > -0.1 && rotateValue < 0.1) {
+		} else if (moveValue < -0.3 && rotateValue > -0.3 && rotateValue < 0.3) {
 			Robot.driveState = DriveState.REVERSE;
 		} else {
 			Robot.driveState = DriveState.STILL;
@@ -60,13 +62,13 @@ public class DriveTrain extends Subsystem {
 	public void tankDrive(double leftValue, double rightValue) {
 
 		// set the proper drive state based on values passed in
-		if (leftValue > 0.1 && rightValue > 0.1) {
+		if (leftValue > 0.3 && rightValue > 0.3) {
 			Robot.driveState = DriveState.FORWARD;
-		} else if (leftValue > 0.1 && rightValue < -0.1) {
+		} else if (leftValue > 0.3 && rightValue < -0.3) {
 			Robot.driveState = DriveState.TURNING_RIGHT;
-		} else if (leftValue < -0.1 && rightValue > 0.1) {
+		} else if (leftValue < -0.3 && rightValue > 0.3) {
 			Robot.driveState = DriveState.TURNING_LEFT;
-		} else if (leftValue < -0.1 && rightValue < -0.1) {
+		} else if (leftValue < -0.3 && rightValue < -0.3) {
 			Robot.driveState = DriveState.REVERSE;
 		} else {
 			Robot.driveState = DriveState.STILL;

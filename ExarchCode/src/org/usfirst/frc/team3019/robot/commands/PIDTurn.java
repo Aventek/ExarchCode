@@ -20,7 +20,7 @@ public class PIDTurn extends Command {
 		Robot.driveState = DriveState.PID;
 
 		// take initial angle values
-		Robot.PIDDriving.initialYaw = Robot.mxpBreakout.getYaw();
+		Robot.PIDDriving.initialYaw = Robot.mxpBreakout.spigyro.getAngle();
 		Robot.PIDDriving.initialAzimuth = SmartDashboard.getNumber("azimuthal", 0);
 
 		// starts aiming process
@@ -32,7 +32,7 @@ public class PIDTurn extends Command {
 	protected void execute() {
 
 		// get the change in yaw since starting PIDDrive
-		Robot.PIDDriving.deltaYaw = Robot.mxpBreakout.getYaw() - Robot.PIDDriving.initialYaw;
+		Robot.PIDDriving.deltaYaw = Robot.mxpBreakout.spigyro.getAngle() - Robot.PIDDriving.initialYaw;
 
 	}
 
@@ -41,7 +41,7 @@ public class PIDTurn extends Command {
 
 		// stops correcting if within 0.3 degrees of target forward
 		double error = Robot.PIDDriving.initialAzimuth + Robot.PIDDriving.deltaYaw;
-		return Math.abs(error) < .3f;
+		return Math.abs(error) < 1.0f;
 
 	}
 

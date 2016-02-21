@@ -4,7 +4,7 @@ package org.usfirst.frc.team3019.robot;
 import org.usfirst.frc.team3019.robot.commands.FalconPunch;
 import org.usfirst.frc.team3019.robot.commands.PIDAngle;
 import org.usfirst.frc.team3019.robot.commands.PIDTurn;
-import org.usfirst.frc.team3019.robot.commands.Solenoids;
+import org.usfirst.frc.team3019.robot.commands.SolenoidToggle;
 import org.usfirst.frc.team3019.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team3019.robot.subsystems.Launcher;
 import org.usfirst.frc.team3019.robot.subsystems.Lifter;
@@ -51,11 +51,11 @@ public class Robot extends IterativeRobot {
 
 	// using enumerations to control and switch states, and setting default
 	// states
-	public static LauncherState launcherState = LauncherState.STILL;
-	public static AnglerState anglerState = AnglerState.STILL;
-	public static DriveState driveState = DriveState.STILL;
-	public static SolenoidState solenoidState = SolenoidState.OFF;
-	public static ServoState servoState = ServoState.RETRACTED;
+	public static LauncherState launcherState;
+	public static AnglerState anglerState;
+	public static DriveState driveState;
+	public static SolenoidState solenoidState;
+	public static ServoState servoState;
 	
 	// autonomous command (not in use)
 	Command autonomousCommand;
@@ -68,6 +68,11 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void robotInit() {
+		launcherState = LauncherState.STILL;
+		anglerState = AnglerState.STILL;
+		driveState = DriveState.STILL;
+		solenoidState = SolenoidState.OFF;
+		servoState = ServoState.RETRACTED;
 
 		// instantiate all necessary items
 		instantiateDashButtons();
@@ -76,6 +81,7 @@ public class Robot extends IterativeRobot {
 		// create OI last so buttons can do commands
 		oi = new OI();
 
+		Robot.pneumatics.soliOff();
 	}
 
 	private void instantiateNetworkTable() {
@@ -90,7 +96,7 @@ public class Robot extends IterativeRobot {
 		
 		SmartDashboard.putData("PIDTurn", new PIDTurn());
 		SmartDashboard.putData("PIDAngle", new PIDAngle());
-		SmartDashboard.putData("ToggleSolenoid", new Solenoids());
+		SmartDashboard.putData("ToggleSolenoid", new SolenoidToggle());
 		SmartDashboard.putData("ServoPunch", new FalconPunch());
 
 	}
@@ -112,6 +118,14 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void disabledPeriodic() {
+
+		//normalize potentiometer angle from 1080 to 360 degrees
+		Robot.launcher.potAngle = (Robot.launcher.anglePot.get() / 3) - 163;
+
+		
+		visionProcessing();
+		dashUpdate();
+		
 		Scheduler.getInstance().run();
 	}
 
@@ -125,11 +139,21 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void teleopInit() {
+		
+		launcherState = LauncherState.STILL;
+		anglerState = AnglerState.STILL;
+		driveState = DriveState.STILL;
+		solenoidState = SolenoidState.OFF;
+		servoState = ServoState.RETRACTED;
+		
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 	}
 
 	public void teleopPeriodic() {
+
+		//normalize potentiometer angle from 1080 to 360 degrees
+		Robot.launcher.potAngle = (Robot.launcher.anglePot.get() / 3) - 163;
 
 		visionProcessing();
 		dashUpdate();
@@ -138,7 +162,9 @@ public class Robot extends IterativeRobot {
 	}
 
 	private void dashUpdate() {
+		SmartDashboard.putNumber("numRan", RobotMap.numRan);
 
+		
 		SmartDashboard.putNumber("servoPosition", Robot.launcher.pusher.get());
 		// putting azimuthal to SmartDash
 		SmartDashboard.putNumber("azimuth", RobotMap.angleOff);
