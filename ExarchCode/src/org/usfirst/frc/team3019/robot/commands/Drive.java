@@ -21,8 +21,8 @@ public class Drive extends Command {
 		// Simple arcade drive from lStick axes if not doing PID
 		if (Robot.driveState != DriveState.PID) {
 
-			Robot.driveTrain.arcadeDrive(-Robot.oi.xbox.getY() * RobotMap.driveNerf,
-					-Robot.oi.xbox.getX() * RobotMap.driveNerf);
+			Robot.driveTrain.arcadeDrive(Robot.oi.xbox.getY() * RobotMap.driveNerf,
+					Robot.oi.xbox.getX() * RobotMap.driveNerf);
 
 		}
 

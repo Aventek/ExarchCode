@@ -8,13 +8,17 @@ import org.usfirst.frc.team3019.robot.utilities.DriveState;
 
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class DriveTrain extends Subsystem {
 
 	// instantiate motors and drives used
-	Talon leftMotor;
-	Talon rightMotor;
+	VictorSP rearLeftMotor;
+	VictorSP rearRightMotor;
+	VictorSP frontLeftMotor;
+	VictorSP frontRightMotor;
+	
 	RobotDrive drive;
 
 	public DriveTrain() {
@@ -22,13 +26,16 @@ public class DriveTrain extends Subsystem {
 		super();
 
 		// setting left and right motors to correct ports
-		rightMotor = new Talon(RobotMap.rightDrivePWM);
-		leftMotor = new Talon(RobotMap.leftDrivePWM);
+		rearRightMotor = new VictorSP(RobotMap.rightRearDrivePWM);
+		frontRightMotor = new VictorSP(RobotMap.rightFrontDrivePWM);
+		rearLeftMotor = new VictorSP(RobotMap.leftRearDrivePWM);
+		frontLeftMotor = new VictorSP(RobotMap.leftFrontDrivePWM);
 
-		leftMotor.setInverted(true);
+		rearRightMotor.setInverted(true);
+		frontRightMotor.setInverted(true);
 		
 		// standard drive system
-		drive = new RobotDrive(leftMotor, rightMotor);
+		drive = new RobotDrive(frontLeftMotor,rearLeftMotor,frontRightMotor,rearRightMotor);
 
 	}
 
