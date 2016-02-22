@@ -22,9 +22,9 @@ public class RobotMap {
 	public static int numRan = 0;
 
 	// pwm ports
-	public static final int leftRearDrivePWM = 2;
+	public static final int leftRearDrivePWM = 0;
 	public static final int leftFrontDrivePWM = 1;
-	public static final int rightRearDrivePWM = 0; 
+	public static final int rightRearDrivePWM = 2; 
 	public static final int rightFrontDrivePWM = 3; 
 
 	
