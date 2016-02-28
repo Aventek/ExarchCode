@@ -22,7 +22,7 @@ public class Drive extends Command {
 		if (Robot.driveState != DriveState.PID) {
 
 			Robot.driveTrain.arcadeDrive(Robot.oi.xbox.getY() * RobotMap.driveNerf,
-					Robot.oi.xbox.getX() * RobotMap.driveNerf);
+					-Robot.oi.xbox.getX() * RobotMap.driveNerf);
 
 		}
 
