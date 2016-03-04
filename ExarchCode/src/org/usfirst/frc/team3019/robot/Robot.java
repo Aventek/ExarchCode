@@ -59,35 +59,40 @@ public class Robot extends IterativeRobot {
 	public static SolenoidState solenoidState;
 	public static ServoState servoState;
 	
+	//create camserver for the usb camera
 	public static CameraServer camServer;
 	
 	// autonomous command (not in use)
 	Command autonomousCommand;
 
+	//autonomous state chooser
 	SendableChooser chooser1;
 
 	public Robot() {
+		//instantiate subsystems
 		instantiateSubs();
-
 	}
 
 	public void robotInit() {
+		//make all enums default states
 		launcherState = LauncherState.STILL;
 		anglerState = AnglerState.STILL;
 		driveState = DriveState.STILL;
 		solenoidState = SolenoidState.OFF;
 		servoState = ServoState.RETRACTED;
 		
+		//start camserver and get instance of the usb camera
 		camServer = CameraServer.getInstance();
 		camServer.startAutomaticCapture("cam1");
 		
-		// instantiate all necessary items
+		// instantiate smartdashboard and networktable resources
 		instantiateDashButtons();
 		instantiateNetworkTable();
 		
 		// create OI last so buttons can do commands
 		oi = new OI();
 
+		//make solenoids off
 		Robot.pneumatics.soliOff();
 	}
 
@@ -121,8 +126,11 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void disabledInit() {
+		
+		//when we disable the bot turn off all PID systems to keep robot from seppuku
 		Robot.PIDAngling.disable();
 		Robot.PIDDriving.disable();
+	
 	}
 
 	public void disabledPeriodic() {
@@ -130,7 +138,7 @@ public class Robot extends IterativeRobot {
 		//normalize potentiometer angle from 1080 to 360 degrees
 		Robot.launcher.potAngle = (Robot.launcher.anglePot.get() / 3) - 168;
 
-		
+		//updates values from towertracker and all values we place on smartdash
 		visionProcessing();
 		dashUpdate();
 		
@@ -148,6 +156,7 @@ public class Robot extends IterativeRobot {
 
 	public void teleopInit() {
 		
+		//when we start the robot in teleop, set enums back to default
 		launcherState = LauncherState.STILL;
 		anglerState = AnglerState.STILL;
 		driveState = DriveState.STILL;
@@ -164,6 +173,7 @@ public class Robot extends IterativeRobot {
 		Robot.launcher.potAngle = (Robot.launcher.anglePot.get() / 3) - 168;
 		Robot.launcher.targetAngle = table.getNumber("targetAngle", 0);
 
+		//constantly update values from towertracker and all values we place in smartdash
 		visionProcessing();
 		dashUpdate();
 
@@ -171,27 +181,22 @@ public class Robot extends IterativeRobot {
 	}
 
 	private void dashUpdate() {
-		//target Angle
-		SmartDashboard.putNumber("visTargetAngle", Robot.launcher.targetAngle);
 		
+		SmartDashboard.putNumber("visTargetAngle", Robot.launcher.targetAngle);
 		SmartDashboard.putNumber("servoPosition", Robot.launcher.pusher.get());
-		// putting azimuthal to SmartDash
 		SmartDashboard.putNumber("azimuth", RobotMap.angleOff);
-
-		// put current states in smartDash
 		SmartDashboard.putString("driveState", "" + driveState);
 		SmartDashboard.putString("anglerState", "" + anglerState);
 		SmartDashboard.putString("launcherState", "" + launcherState);
 		SmartDashboard.putString("solenoidState", "" + solenoidState);
 		SmartDashboard.putString("servoState", "" + servoState);
-
-		// put pot value in smartDash
 		SmartDashboard.putNumber("potReading", Robot.launcher.potAngle);
 
 	}
 
 	private void visionProcessing() {
 
+		//put distance to target
 		SmartDashboard.putNumber("distance", table.getNumber("VISdistance", 0));
 
 		// fixing angleOff to be relative to forwards
