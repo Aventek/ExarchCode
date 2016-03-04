@@ -18,8 +18,8 @@ public class PIDAngling extends PIDSubsystem {
 		super(P, I, D);
 
 		// setInputRange(-25, 25);
-		setAbsoluteTolerance(1);
-		setOutputRange(-0.5, 0.6);
+//		setAbsoluteTolerance(1);
+		setOutputRange(-0.2, 0.2);
 
 	}
 
@@ -35,7 +35,7 @@ public class PIDAngling extends PIDSubsystem {
 	protected double returnPIDInput() {
 
 		// use the potentiometer's read angle to match the
-		return Robot.launcher.anglePot.get();
+		return Robot.PIDAngling.angle - Robot.launcher.potAngle;
 
 	}
 

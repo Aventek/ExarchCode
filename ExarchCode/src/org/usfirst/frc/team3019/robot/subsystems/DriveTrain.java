@@ -46,16 +46,18 @@ public class DriveTrain extends Subsystem {
 	public void arcadeDrive(double moveValue, double rotateValue) {
 
 		// Set the proper drive state based on values passed in
-		if (moveValue > 0.3 && rotateValue > -0.3 && rotateValue < 0.3) {
-			Robot.driveState = DriveState.FORWARD;
-		} else if (rotateValue > 0.3) {
-			Robot.driveState = DriveState.TURNING_RIGHT;
-		} else if (rotateValue < -0.3) {
-			Robot.driveState = DriveState.TURNING_LEFT;
-		} else if (moveValue < -0.3 && rotateValue > -0.3 && rotateValue < 0.3) {
-			Robot.driveState = DriveState.REVERSE;
-		} else {
-			Robot.driveState = DriveState.STILL;
+		if(Robot.driveState != DriveState.PID){
+			if (moveValue > 0.3 && rotateValue > -0.3 && rotateValue < 0.3) {
+				Robot.driveState = DriveState.FORWARD;
+			} else if (rotateValue > 0.3) {
+				Robot.driveState = DriveState.TURNING_RIGHT;
+			} else if (rotateValue < -0.3) {
+				Robot.driveState = DriveState.TURNING_LEFT;
+			} else if (moveValue < -0.3 && rotateValue > -0.3 && rotateValue < 0.3) {
+				Robot.driveState = DriveState.REVERSE;
+			} else {
+				Robot.driveState = DriveState.STILL;
+			}
 		}
 
 		drive.arcadeDrive(moveValue, rotateValue);

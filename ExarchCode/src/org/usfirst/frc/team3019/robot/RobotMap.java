@@ -16,7 +16,7 @@ public class RobotMap {
 
 	// systems in use, change to pos or neg here
 	public static final boolean usePneumatics = true;
-	public static final boolean usePID = false;
+	public static final boolean usePID = true;
 	public static final boolean usePuncher = true;
 	public static final boolean useAutoAlign = false;
 	public static int numRan = 0;

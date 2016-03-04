@@ -115,19 +115,20 @@ public class Robot extends IterativeRobot {
 		mxpBreakout = new MXPBreakout();
 		launcher = new Launcher();
 		lifter = new Lifter();
-		PIDDriving = new PIDDriving(0.8, 0.0, 0.0, 0);
-		PIDAngling = new PIDAngling(0.8, 0.0, 0.0, 0);
+		PIDDriving = new PIDDriving(0.6, 0.2, 0.4, 0);
+		PIDAngling = new PIDAngling(0.2, 0.0, 0.01, 0);
 
 	}
 
 	public void disabledInit() {
-
+		Robot.PIDAngling.disable();
+		Robot.PIDDriving.disable();
 	}
 
 	public void disabledPeriodic() {
 
 		//normalize potentiometer angle from 1080 to 360 degrees
-		Robot.launcher.potAngle = (Robot.launcher.anglePot.get() / 3) - 163;
+		Robot.launcher.potAngle = (Robot.launcher.anglePot.get() / 3) - 168;
 
 		
 		visionProcessing();
@@ -160,7 +161,8 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 
 		//normalize potentiometer angle from 1080 to 360 degrees
-		Robot.launcher.potAngle = (Robot.launcher.anglePot.get() / 3) - 163;
+		Robot.launcher.potAngle = (Robot.launcher.anglePot.get() / 3) - 168;
+		Robot.launcher.targetAngle = table.getNumber("targetAngle", 0);
 
 		visionProcessing();
 		dashUpdate();
@@ -169,8 +171,8 @@ public class Robot extends IterativeRobot {
 	}
 
 	private void dashUpdate() {
-		SmartDashboard.putNumber("numRan", RobotMap.numRan);
-
+		//target Angle
+		SmartDashboard.putNumber("visTargetAngle", Robot.launcher.targetAngle);
 		
 		SmartDashboard.putNumber("servoPosition", Robot.launcher.pusher.get());
 		// putting azimuthal to SmartDash

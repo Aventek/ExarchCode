@@ -24,14 +24,22 @@ public class PIDAngle extends Command {
 		Robot.PIDAngling.distance = SmartDashboard.getNumber("distance", 0);
 
 		// calculation for 10 m/s shoot speed
-		Robot.PIDAngling.angle = 28;
+		Robot.PIDAngling.angle = Robot.launcher.targetAngle;
 //0.2075
 //		* (Math.pow(Robot.PIDAngling.distance, 2) - 0.1817 * (Robot.PIDAngling.distance) + 44.395);
 
 		SmartDashboard.putNumber("targetAngle", Robot.PIDAngling.angle);
-		Robot.PIDAngling.setSetpoint(Robot.PIDAngling.angle);
-		Robot.PIDAngling.enable();
+		Robot.PIDAngling.setSetpoint(0);
+		if(Robot.PIDAngling.distance != 0){
+			Robot.PIDAngling.enable();
+	
+		}
+		
 
+		double error = Robot.PIDAngling.angle - Robot.launcher.potAngle;
+
+		SmartDashboard.putNumber("PIDAngleError", error);
+		
 	}
 
 	protected void execute() {
@@ -41,13 +49,15 @@ public class PIDAngle extends Command {
 
 		double error = Robot.PIDAngling.angle - Robot.launcher.potAngle;
 		SmartDashboard.putNumber("PIDAngleError", error);
-		return Math.abs(error) < .5f;
+		return Math.abs(error) < .1f;
 
 	}
 
 	protected void end() {
-
+		
+		Robot.launcher.angleLauncher(0);
 		Robot.anglerState = AnglerState.STILL;
+		Robot.PIDAngling.disable();
 
 	}
 

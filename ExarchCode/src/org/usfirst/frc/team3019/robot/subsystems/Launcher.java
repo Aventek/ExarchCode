@@ -20,6 +20,7 @@ public class Launcher extends Subsystem {
 	public Servo pusher;
 	public AnalogPotentiometer anglePot;
 	public double potAngle;
+	public double targetAngle;
 
 	public Launcher() {
 

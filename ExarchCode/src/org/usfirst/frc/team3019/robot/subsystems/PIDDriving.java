@@ -36,7 +36,7 @@ public class PIDDriving extends PIDSubsystem {
 		setSetpoint(0);
 		// setInputRange(-25, 25);
 		setAbsoluteTolerance(1);
-		setOutputRange(-1, 1);
+		setOutputRange(-0.90, 0.90);
 
 	}
 
@@ -62,7 +62,7 @@ public class PIDDriving extends PIDSubsystem {
 	protected void usePIDOutput(double output) {
 
 		// Output of pid to rotate bot towards center/forward
-		Robot.driveTrain.arcadeDrive(0, output);
+		Robot.driveTrain.arcadeDrive(0, -output);
 
 	}
 
