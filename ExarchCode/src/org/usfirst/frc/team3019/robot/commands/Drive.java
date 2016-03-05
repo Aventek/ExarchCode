@@ -7,14 +7,12 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class Drive extends Command {
 
+	double speed;
+	double turn;
+	boolean auto;
 	public Drive() {
 		requires(Robot.driveTrain);
 	}
-
-	@Override
-	protected void initialize() {
-	}
-
 	@Override
 	protected void execute() {
 
@@ -25,6 +23,7 @@ public class Drive extends Command {
 					-Robot.oi.xbox.getX() * RobotMap.driveNerf);
 
 		}
+		
 
 	}
 
@@ -39,6 +38,11 @@ public class Drive extends Command {
 
 	@Override
 	protected void interrupted() {
+	}
+	@Override
+	protected void initialize() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

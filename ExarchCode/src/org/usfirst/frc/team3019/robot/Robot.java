@@ -102,8 +102,8 @@ public class Robot extends IterativeRobot {
 		mxpBreakout = new MXPBreakout();
 		launcher = new Launcher();
 		lifter = new Lifter();
-		PIDDriving = new PIDDriving(0.8, 0.0, 0.0, 0);
-		PIDAngling = new PIDAngling(0.8, 0.0, 0.0, 0);
+		PIDDriving = new PIDDriving(0.3, 0.05, 0.5, 0);
+		PIDAngling = new PIDAngling(0.2, 0.0, 0.1, 0);
 
 	}
 
