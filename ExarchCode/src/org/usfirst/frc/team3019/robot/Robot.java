@@ -39,7 +39,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot {
 
 	// instantiate networktable for vision tracking
-	NetworkTable table;
+	public static NetworkTable table;
 
 	// instantiate all subsystems
 	public static DriveTrain driveTrain;
@@ -116,7 +116,7 @@ public class Robot extends IterativeRobot {
 		launcher = new Launcher();
 		lifter = new Lifter();
 		PIDDriving = new PIDDriving(0.3, 0.05, 0.5, 0);
-		PIDAngling = new PIDAngling(0.2, 0.0, 0.1, 0);
+		PIDAngling = new PIDAngling(0.1, 0.0, 0.05, 0);
 
 	}
 

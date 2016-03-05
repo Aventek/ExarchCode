@@ -26,7 +26,7 @@ public class Launcher extends Subsystem {
 
 		// Servo to push ball into launcher
 		pusher = new Servo(RobotMap.launchServoPWM);
-		pusher.set(0.8);
+		pusher.set(0.);
 
 		// Motors used for launching mechanism
 		leftLaunch = new VictorSP(RobotMap.leftLaunchPWM);

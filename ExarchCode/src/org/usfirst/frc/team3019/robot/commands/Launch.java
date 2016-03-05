@@ -66,10 +66,10 @@ public class Launch extends Command {
 		}
 		
 		//control servo based on state
-		if(Robot.servoState == ServoState.EXTENDED){
+		if(Robot.servoState == ServoState.RETRACTED){
 			Robot.launcher.servoControl(1);
-		} else if(Robot.servoState == ServoState.RETRACTED){
-			Robot.launcher.servoControl(.8);
+		} else if(Robot.servoState == ServoState.EXTENDED){
+			Robot.launcher.servoControl(.0);
 		}
 
 	}

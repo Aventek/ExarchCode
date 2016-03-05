@@ -1,6 +1,8 @@
 package org.usfirst.frc.team3019.robot;
 
 import org.usfirst.frc.team3019.robot.commands.*;
+import org.usfirst.frc.team3019.robot.subsystems.PIDAngling;
+import org.usfirst.frc.team3019.robot.utilities.AnglerState;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -61,7 +63,11 @@ public class OI {
 			// PID commands
 			xb7.whenPressed(new PIDTurn());
 			//testing command group
-			xb8.whenPressed(new PIDAngle());
+			if(Robot.anglerState != AnglerState.PID){
+				xb8.whenPressed(new PIDAngle());
+			}else{
+//				xb8.whenPressed(new PIDAngle("SKIP"));
+			}
 //			xb8.whenPressed(new ShootCommandGroup());
 			
 		}

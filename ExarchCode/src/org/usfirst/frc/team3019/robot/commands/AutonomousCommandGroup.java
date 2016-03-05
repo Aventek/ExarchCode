@@ -13,7 +13,8 @@ public class AutonomousCommandGroup extends CommandGroup {
     	
     	if(mode == AutonomousMode.LOW_BAR){
     		//drive forward
-    		
+    		addSequential(new Drive(.6,0),3);
+//    		addSequential(command);
     	} else if (mode == AutonomousMode.MOAT){
     		//drive forward
     	} else if (mode == AutonomousMode.RAMPART){

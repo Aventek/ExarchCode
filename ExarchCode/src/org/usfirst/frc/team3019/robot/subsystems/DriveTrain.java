@@ -30,11 +30,10 @@ public class DriveTrain extends Subsystem {
 		frontRightMotor = new VictorSP(RobotMap.rightFrontDrivePWM);
 		rearLeftMotor = new VictorSP(RobotMap.leftRearDrivePWM);
 		frontLeftMotor = new VictorSP(RobotMap.leftFrontDrivePWM);
-
 		
 		// standard drive system
 		drive = new RobotDrive(frontLeftMotor,rearLeftMotor,frontRightMotor,rearRightMotor);
-
+		
 	}
 
 	@Override

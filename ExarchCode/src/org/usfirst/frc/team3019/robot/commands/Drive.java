@@ -7,6 +7,18 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class Drive extends Command {
 
+	
+	
+	double speed;
+	double turn;
+	boolean auto;
+	public Drive(double speed, double turn) {
+		this();
+		this.speed = speed;
+		this.turn = turn;
+		auto = true;
+		Robot.driveState = DriveState.AUTO;
+	}
 	public Drive() {
 		requires(Robot.driveTrain);
 	}
@@ -17,14 +29,17 @@ public class Drive extends Command {
 
 	@Override
 	protected void execute() {
-
 		// Simple arcade drive from lStick axes if not doing PID
 		if (Robot.driveState != DriveState.PID) {
-
-			Robot.driveTrain.arcadeDrive(Robot.oi.xbox.getY() * RobotMap.driveNerf,
-					-Robot.oi.xbox.getX() * RobotMap.driveNerf);
-
+			double moveValue = Robot.oi.xbox.getY();
+			double rotateValue = -Robot.oi.xbox.getX();
+			Robot.driveTrain.arcadeDrive(moveValue * RobotMap.driveNerf,
+					rotateValue * RobotMap.driveNerf);
 		}
+//		double moveValue = Robot.oi.xbox.getY();
+//		double rotateValue = -Robot.oi.xbox.getX();
+//		Robot.driveTrain.arcadeDrive(moveValue, rotateValue);
+//		Robot.driveTrain.tankDrive(Robot.oi.xbox.getRawAxis(5), Robot.oi.xbox.getY() * 0.75);
 
 	}
 

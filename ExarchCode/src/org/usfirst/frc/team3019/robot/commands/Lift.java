@@ -31,7 +31,7 @@ public class Lift extends Command {
 		}
 		*/
 		
-		liftspeed = Robot.oi.xbox.getRawAxis(5);
+//		liftspeed = Robot.oi.xbox.getRawAxis(5);
 		
 		// use the right stick y axis to control the lift angler motors
 		Robot.lifter.LiftControl(liftspeed);
