@@ -18,14 +18,17 @@ public class FalconPunch extends Command {
 
 	protected void initialize() {
 		
-		//if retracted then extend, if extended then retract
+		//if retracted then extend and change state
 		if(retracted){
+			
 			Robot.servoState = ServoState.EXTENDED;
+			
 		}else if(!retracted){
+			
 			Robot.servoState = ServoState.RETRACTED;
+			
 		}
 		
-		//toggle boolean to be correct
 		retracted = !retracted;
 
 	}

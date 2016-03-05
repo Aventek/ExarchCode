@@ -15,25 +15,22 @@ public class RobotMap {
 	public static double angleOff;
 
 	// systems in use, change to pos or neg here
-	public static final boolean usePneumatics = true;
+	public static final boolean useCompressor = false;
 	public static final boolean usePID = true;
 	public static final boolean usePuncher = true;
 	public static final boolean useAutoAlign = false;
 
-// pwm ports
-	//DRIVE MOTORS
-	public static final int leftRearDrivePWM = 0;
-	public static final int leftFrontDrivePWM = 1;
-	public static final int rightRearDrivePWM = 2; 
-	public static final int rightFrontDrivePWM = 3; 
-	//LAUNCHER MOTORS
-	public static final int leftLaunchPWM = 4; 
-	public static final int rightLaunchPWM = 5;
-	//ARM LIFT MOTORS
-	public static final int liftAnglerPWM = 6;  
-	public static final int liftAngler2PWM =7;
-	//SHOOTER ANGLING AND SERVO
-	public static final int launchAnglerPWM = 8;
-	public static final int launchServoPWM = 9;
+	// pwm ports
+	public static final int leftDrivePWM = 0;
+	public static final int rightDrivePWM = 1;
+
+	public static final int leftLaunchPWM = 2;
+	public static final int rightLaunchPWM = 3;
+
+	public static final int liftAnglerPWM = 4;
+	public static final int liftAngler2PWM = 5;
+	
+	public static final int launchAnglerPWM = 6;
+	public static final int launchServoPWM = 7;
 
 }

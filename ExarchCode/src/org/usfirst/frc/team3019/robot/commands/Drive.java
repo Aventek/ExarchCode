@@ -4,10 +4,7 @@ import org.usfirst.frc.team3019.robot.Robot;
 import org.usfirst.frc.team3019.robot.RobotMap;
 import org.usfirst.frc.team3019.robot.utilities.DriveState;
 import edu.wpi.first.wpilibj.command.Command;
-/*
- * do arcade driving when we dont do pid
- *  
- */
+
 public class Drive extends Command {
 
 	public Drive() {
@@ -20,11 +17,15 @@ public class Drive extends Command {
 
 	@Override
 	protected void execute() {
+
 		// Simple arcade drive from lStick axes if not doing PID
 		if (Robot.driveState != DriveState.PID) {
-			Robot.driveTrain.arcadeDrive(Robot.oi.xbox.getY() * RobotMap.driveNerf,
+
+			Robot.driveTrain.arcadeDrive(-Robot.oi.xbox.getY() * RobotMap.driveNerf,
 					-Robot.oi.xbox.getX() * RobotMap.driveNerf);
+
 		}
+
 	}
 
 	@Override
