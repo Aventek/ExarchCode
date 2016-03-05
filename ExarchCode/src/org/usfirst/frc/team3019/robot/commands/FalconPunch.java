@@ -20,13 +20,9 @@ public class FalconPunch extends Command {
 		
 		//if retracted then extend and change state
 		if(retracted){
-			
 			Robot.servoState = ServoState.EXTENDED;
-			
 		}else if(!retracted){
-			
 			Robot.servoState = ServoState.RETRACTED;
-			
 		}
 		
 		retracted = !retracted;

@@ -17,6 +17,8 @@ public class SolenoidToggle extends Command {
 	}
 
 	protected void initialize() {
+		
+		RobotMap.numRan ++;
 
 		// if depending on solenoid State, change solenoid input
 		if (solenoidState) {

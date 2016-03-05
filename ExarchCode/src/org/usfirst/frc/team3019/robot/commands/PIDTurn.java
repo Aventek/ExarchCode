@@ -20,8 +20,8 @@ public class PIDTurn extends Command {
 		Robot.driveState = DriveState.PID;
 
 		// take initial angle values
-		Robot.PIDDriving.initialYaw = Robot.mxpBreakout.getYaw();
-		Robot.PIDDriving.initialAzimuth = SmartDashboard.getNumber("azimuthal", 0);
+		Robot.PIDDriving.initialYaw = Robot.mxpBreakout.spigyro.getAngle();
+		Robot.PIDDriving.initialAzimuth = SmartDashboard.getNumber("azimuth", 0);
 
 		// starts aiming process
 		Robot.PIDDriving.enable();
@@ -32,7 +32,10 @@ public class PIDTurn extends Command {
 	protected void execute() {
 
 		// get the change in yaw since starting PIDDrive
-		Robot.PIDDriving.deltaYaw = Robot.mxpBreakout.getYaw() - Robot.PIDDriving.initialYaw;
+		Robot.PIDDriving.deltaYaw = Robot.mxpBreakout.spigyro.getAngle() - Robot.PIDDriving.initialYaw;
+		
+		double error = Robot.PIDDriving.initialAzimuth + Robot.PIDDriving.deltaYaw;
+		SmartDashboard.putNumber("PIDTurn error", error);
 
 	}
 
@@ -41,7 +44,7 @@ public class PIDTurn extends Command {
 
 		// stops correcting if within 0.3 degrees of target forward
 		double error = Robot.PIDDriving.initialAzimuth + Robot.PIDDriving.deltaYaw;
-		return Math.abs(error) < .3f;
+		return Math.abs(error) < 0.25f;
 
 	}
 
@@ -50,8 +53,8 @@ public class PIDTurn extends Command {
 
 		// when done aiming, stop motors, disable PID, and set drivestate back
 		// to Joystick
-		Robot.driveTrain.arcadeDrive(0, 0);
 		Robot.PIDDriving.disable();
+		Robot.driveTrain.arcadeDrive(0, 0);
 		Robot.driveState = DriveState.STILL;
 
 		// Robot.launcher.hasAligned = true;

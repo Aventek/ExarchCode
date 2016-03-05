@@ -1,10 +1,10 @@
 
 package org.usfirst.frc.team3019.robot;
 
-import org.usfirst.frc.team3019.robot.commands.Solenoids;
 import org.usfirst.frc.team3019.robot.commands.FalconPunch;
 import org.usfirst.frc.team3019.robot.commands.PIDAngle;
 import org.usfirst.frc.team3019.robot.commands.PIDTurn;
+import org.usfirst.frc.team3019.robot.commands.SolenoidToggle;
 import org.usfirst.frc.team3019.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team3019.robot.subsystems.Launcher;
 import org.usfirst.frc.team3019.robot.subsystems.Lifter;
@@ -18,6 +18,7 @@ import org.usfirst.frc.team3019.robot.utilities.LauncherState;
 import org.usfirst.frc.team3019.robot.utilities.ServoState;
 import org.usfirst.frc.team3019.robot.utilities.SolenoidState;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -25,6 +26,7 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -51,11 +53,13 @@ public class Robot extends IterativeRobot {
 
 	// using enumerations to control and switch states, and setting default
 	// states
-	public static LauncherState launcherState = LauncherState.STILL;
-	public static AnglerState anglerState = AnglerState.STILL;
-	public static DriveState driveState = DriveState.STILL;
-	public static SolenoidState solenoidState = SolenoidState.OFF;
-	public static ServoState servoState = ServoState.RETRACTED;
+	public static LauncherState launcherState;
+	public static AnglerState anglerState;
+	public static DriveState driveState;
+	public static SolenoidState solenoidState;
+	public static ServoState servoState;
+	
+	public static CameraServer camServer;
 	
 	// autonomous command (not in use)
 	Command autonomousCommand;
@@ -68,7 +72,15 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void robotInit() {
-
+		launcherState = LauncherState.STILL;
+		anglerState = AnglerState.STILL;
+		driveState = DriveState.STILL;
+		solenoidState = SolenoidState.OFF;
+		servoState = ServoState.RETRACTED;
+		
+		camServer = CameraServer.getInstance();
+		camServer.startAutomaticCapture("cam1");
+		
 		// instantiate all necessary items
 		instantiateDashButtons();
 		instantiateNetworkTable();
@@ -76,6 +88,7 @@ public class Robot extends IterativeRobot {
 		// create OI last so buttons can do commands
 		oi = new OI();
 
+		Robot.pneumatics.soliOff();
 	}
 
 	private void instantiateNetworkTable() {
@@ -90,7 +103,7 @@ public class Robot extends IterativeRobot {
 		
 		SmartDashboard.putData("PIDTurn", new PIDTurn());
 		SmartDashboard.putData("PIDAngle", new PIDAngle());
-		SmartDashboard.putData("ToggleSolenoid", new Solenoids());
+		SmartDashboard.putData("ToggleSolenoid", new SolenoidToggle());
 		SmartDashboard.putData("ServoPunch", new FalconPunch());
 
 	}
@@ -108,10 +121,19 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void disabledInit() {
-
+		Robot.PIDAngling.disable();
+		Robot.PIDDriving.disable();
 	}
 
 	public void disabledPeriodic() {
+
+		//normalize potentiometer angle from 1080 to 360 degrees
+		Robot.launcher.potAngle = (Robot.launcher.anglePot.get() / 3) - 168-4.5;
+
+		
+		visionProcessing();
+		dashUpdate();
+		
 		Scheduler.getInstance().run();
 	}
 
@@ -125,11 +147,22 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void teleopInit() {
+		
+		launcherState = LauncherState.STILL;
+		anglerState = AnglerState.STILL;
+		driveState = DriveState.STILL;
+		solenoidState = SolenoidState.OFF;
+		servoState = ServoState.RETRACTED;
+		
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
 	}
 
 	public void teleopPeriodic() {
+
+		//normalize potentiometer angle from 1080 to 360 degrees
+		Robot.launcher.potAngle = (Robot.launcher.anglePot.get() / 3) - 168-4.5;
+		Robot.launcher.targetAngle = table.getNumber("targetAngle", 0);
 
 		visionProcessing();
 		dashUpdate();
@@ -138,7 +171,9 @@ public class Robot extends IterativeRobot {
 	}
 
 	private void dashUpdate() {
-
+		//target Angle
+		SmartDashboard.putNumber("visTargetAngle", Robot.launcher.targetAngle);
+		
 		SmartDashboard.putNumber("servoPosition", Robot.launcher.pusher.get());
 		// putting azimuthal to SmartDash
 		SmartDashboard.putNumber("azimuth", RobotMap.angleOff);

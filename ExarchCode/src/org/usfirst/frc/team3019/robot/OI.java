@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
 
+	
 	/* xbox controller */
 	public Joystick xbox = new Joystick(0);
 
@@ -22,6 +23,7 @@ public class OI {
 	 * 	Y-AXIS: FWD/REV FOR ARCADE
 	 * 
 	 * RIGHT STICK
+	 *  X-AXIS: NOT USED
 	 * 	Y-AXIS: RAISING PISTON ARMS
 	 * 
 	 */
@@ -58,14 +60,16 @@ public class OI {
 
 			// PID commands
 			xb7.whenPressed(new PIDTurn());
+			//testing command group
 			xb8.whenPressed(new PIDAngle());
-
+//			xb8.whenPressed(new ShootCommandGroup());
+			
 		}
 
-		if (RobotMap.useCompressor) {
+		if (RobotMap.usePneumatics) {
 
-			// Compressor commands
-			xb1.whenPressed(new Solenoids());
+			// Compressor 
+			xb1.whenPressed(new SolenoidToggle());
 
 		}
 
