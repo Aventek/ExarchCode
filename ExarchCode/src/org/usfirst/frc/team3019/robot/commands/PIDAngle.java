@@ -13,10 +13,15 @@ public class PIDAngle extends Command {
 
 	public static boolean exit = false;
 	public static boolean isRunning = false;
+	double targetAngle = -180;
 	
 	public PIDAngle() {
 		requires(Robot.launcher);
 		requires(Robot.PIDAngling);
+	}
+	public PIDAngle(double target){
+		this();
+		this.targetAngle = target;
 	}
 	public PIDAngle(String param){
 		this();
@@ -30,8 +35,11 @@ public class PIDAngle extends Command {
 		// retrieve distance from target
 		Robot.PIDAngling.distance = SmartDashboard.getNumber("distance", 0);
 
-		// calculation for 10 m/s shoot speed
-		if(Robot.table.getNumber("VISdistance", 0) > 50 && Robot.table.getNumber("VISdistance", 0) < 100){
+		//for custom angle and not auto angle
+		if(targetAngle != -190){
+			Robot.PIDAngling.angle = targetAngle;
+			// calculation for 10 m/s shoot speed
+		} else if(Robot.table.getNumber("VISdistance", 0) > 50 && Robot.table.getNumber("VISdistance", 0) < 100){
 			Robot.PIDAngling.angle = Robot.launcher.targetAngle - 5;
 		}else if(Robot.table.getNumber("VISdistance", 0) > 100 && Robot.table.getNumber("VISdistance", 0) < 120){
 			Robot.PIDAngling.angle = Robot.launcher.targetAngle - 4;

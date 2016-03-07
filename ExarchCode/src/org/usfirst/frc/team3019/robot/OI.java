@@ -16,7 +16,8 @@ public class OI {
 
 	
 	/* xbox controller */
-	public Joystick xbox = new Joystick(0);
+	public Joystick xbox1 = new Joystick(0);
+	public Joystick xbox2 = new Joystick(0);
 
 	/*AXES USED
 	 * 
@@ -45,26 +46,28 @@ public class OI {
 	 * 
 	 */
 	
-	public Button xb1 = new JoystickButton(xbox, 1);
-	public Button xb2 = new JoystickButton(xbox, 2);
-	public Button xb3 = new JoystickButton(xbox, 3);
-	public Button xb4 = new JoystickButton(xbox, 4);
-	public Button xb5 = new JoystickButton(xbox, 5);
-	public Button xb6 = new JoystickButton(xbox, 6);
-	public Button xb7 = new JoystickButton(xbox, 7);
-	public Button xb8 = new JoystickButton(xbox, 8);
-	public Button xb9 = new JoystickButton(xbox, 9);
-	public Button xb10 = new JoystickButton(xbox, 10);
+	public Button buttonToggleSoli = new JoystickButton(xbox1, 1);
+	public Button buttonShooterDown = new JoystickButton(xbox1, 2);
+	public Button buttonShooterUp = new JoystickButton(xbox1, 3);
+	public Button buttonFalconPunch = new JoystickButton(xbox1, 4);
+	public Button buttonLaunch = new JoystickButton(xbox1, 5);
+	public Button buttonIntake = new JoystickButton(xbox1, 6);
+	public Button buttonPIDTurn = new JoystickButton(xbox1, 7);
+	public Button buttonPIDAngle = new JoystickButton(xbox1, 8);
+	public Button xb9 = new JoystickButton(xbox1, 9);
+	public Button xb10 = new JoystickButton(xbox1, 10);
+	
+	public Button ResetPotentiometer = new JoystickButton(xbox2, 2);
 
 	public OI() {
 		
 		if (RobotMap.usePID) {
 
 			// PID commands
-			xb7.whenPressed(new PIDTurn());
+			buttonPIDTurn.whenPressed(new PIDTurn());
 			//testing command group
 			if(Robot.anglerState != AnglerState.PID){
-				xb8.whenPressed(new PIDAngle());
+				buttonPIDAngle.whenPressed(new PIDAngle());
 			}else{
 //				xb8.whenPressed(new PIDAngle("SKIP"));
 			}
@@ -75,14 +78,14 @@ public class OI {
 		if (RobotMap.usePneumatics) {
 
 			// Compressor 
-			xb1.whenPressed(new SolenoidToggle());
+			buttonToggleSoli.whenPressed(new SolenoidToggle());
 
 		}
 
 		if (RobotMap.usePuncher) {
 
 			// launch servo command
-			xb4.whenPressed(new FalconPunch());
+			buttonFalconPunch.whenPressed(new FalconPunch());
 
 		}
 

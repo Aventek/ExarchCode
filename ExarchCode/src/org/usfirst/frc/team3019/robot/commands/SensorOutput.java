@@ -25,10 +25,10 @@ public class SensorOutput extends Command {
 		corrected = first - Robot.mxpBreakout.getYaw();
 		// print all data from breakout board to SmartDash
 //		SmartDashboard.putData("imu", Robot.mxpBreakout.getImu());
-		SmartDashboard.putNumber("pitch", Robot.mxpBreakout.getPitch());
-		SmartDashboard.putNumber("yaw", corrected);
-		SmartDashboard.putNumber("roll", Robot.mxpBreakout.getRoll());
-		SmartDashboard.putNumber("spiAngle", MXPBreakout.spigyro.getAngle());
+//		SmartDashboard.putNumber("pitch", Robot.mxpBreakout.getPitch());
+//		SmartDashboard.putNumber("yaw", corrected);
+//		SmartDashboard.putNumber("roll", Robot.mxpBreakout.getRoll());
+//		SmartDashboard.putNumber("spiAngle", MXPBreakout.spigyro.getAngle());
 
 	}
 

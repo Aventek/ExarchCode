@@ -26,7 +26,7 @@ public class Launcher extends Subsystem {
 
 		// Servo to push ball into launcher
 		pusher = new Servo(RobotMap.launchServoPWM);
-		pusher.set(0.);
+		pusher.set(0.75);
 
 		// Motors used for launching mechanism
 		leftLaunch = new VictorSP(RobotMap.leftLaunchPWM);
@@ -65,23 +65,14 @@ public class Launcher extends Subsystem {
 
 	}
 
-	// self launching sequence, runs motors, waits, extends servo, then waits
-	// another second and stops motors
-	public void selfLaunch() {
-
-		launch(1);
-		Timer.delay(2);
-		servoControl(1);
-		Timer.delay(1);
-		launch(0);
-
-	}
-
 	// used to set position of servo
 	public void servoControl(double i) {
 
 		pusher.set(i);
 
+	}
+	public double getPot(){
+		return anglePot.get()/3;
 	}
 
 }

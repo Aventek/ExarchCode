@@ -14,7 +14,7 @@ public class PIDDriving extends PIDSubsystem {
 	public double initialYaw;
 	public double initialAzimuth;
 	public double deltaYaw;
-
+	boolean driveStraight = false;
 	/**
 	 * 
 	 * @param P
@@ -34,8 +34,6 @@ public class PIDDriving extends PIDSubsystem {
 		table = NetworkTable.getTable("TowerTracker");
 
 		setSetpoint(-.1);
-		// setInputRange(-25, 25);
-		setAbsoluteTolerance(1);
 		setOutputRange(-0.90, 0.90);
 
 	}
@@ -62,8 +60,11 @@ public class PIDDriving extends PIDSubsystem {
 	protected void usePIDOutput(double output) {
 
 		// Output of pid to rotate bot towards center/forward
-		Robot.driveTrain.arcadeDrive(0, -output);
-
+		if(!driveStraight){
+			Robot.driveTrain.ArcadeDrive(0, -output);
+		}else {
+			
+		}
 	}
 
 }

@@ -33,8 +33,8 @@ public class Drive extends Command {
 		if (Robot.driveState != DriveState.PID) {
 			double moveValue = Robot.oi.xbox.getY();
 			double rotateValue = -Robot.oi.xbox.getX();
-			Robot.driveTrain.arcadeDrive(moveValue * RobotMap.driveNerf,
-					rotateValue * RobotMap.driveNerf);
+			Robot.driveTrain.ArcadeDrive(moveValue * RobotMap.driveNerf,
+					rotateValue * RobotMap.turnNerf);
 		}
 //		double moveValue = Robot.oi.xbox.getY();
 //		double rotateValue = -Robot.oi.xbox.getX();
