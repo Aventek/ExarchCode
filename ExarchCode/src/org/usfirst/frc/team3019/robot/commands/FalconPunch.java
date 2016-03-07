@@ -11,22 +11,30 @@ import edu.wpi.first.wpilibj.command.Command;
 public class FalconPunch extends Command {
 
 	boolean retracted = true;
-	
+	boolean doNothing = false;
 	public FalconPunch() {
 		requires(Robot.launcher);
+		this.doNothing = false;
+	}
+
+	public FalconPunch(boolean doNothing) {
+		// TODO Auto-generated constructor stub
+		this();
+		this.doNothing = doNothing;
 	}
 
 	protected void initialize() {
 		
 		//if retracted then extend and change state
-		if(retracted){
-			Robot.servoState = ServoState.EXTENDED;
-		}else if(!retracted){
-			Robot.servoState = ServoState.RETRACTED;
-		}
-		
-		retracted = !retracted;
-
+		if(!doNothing){
+			if(retracted){
+				Robot.servoState = ServoState.EXTENDED;
+			}else if(!retracted){
+				Robot.servoState = ServoState.RETRACTED;
+			}
+			
+			retracted = !retracted;
+		} else {}
 	}
 
 	protected void execute() {

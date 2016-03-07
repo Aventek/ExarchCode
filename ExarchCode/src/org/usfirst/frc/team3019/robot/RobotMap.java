@@ -12,7 +12,9 @@ public class RobotMap {
 	public static final boolean runArms = false;
 	public static float kP = 0.03f;
 	public static double driveNerf = 1;
+	public static double turnNerf = 1;
 	public static double angleOff;
+	public static double ShooterAngleOfset = 163.5;
 
 	// systems in use, change to pos or neg here
 	public static final boolean usePneumatics = true;

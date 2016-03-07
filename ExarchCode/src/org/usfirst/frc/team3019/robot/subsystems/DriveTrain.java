@@ -42,26 +42,27 @@ public class DriveTrain extends Subsystem {
 	}
 
 	// DO: Drive function using arcade drive (1 stick with twist to turn)
-	public void arcadeDrive(double moveValue, double rotateValue) {
-
-		// Set the proper drive state based on values passed in
-		if(Robot.driveState != DriveState.PID){
-			if (moveValue > 0.3 && rotateValue > -0.3 && rotateValue < 0.3) {
-				Robot.driveState = DriveState.FORWARD;
-			} else if (rotateValue > 0.3) {
-				Robot.driveState = DriveState.TURNING_RIGHT;
-			} else if (rotateValue < -0.3) {
-				Robot.driveState = DriveState.TURNING_LEFT;
-			} else if (moveValue < -0.3 && rotateValue > -0.3 && rotateValue < 0.3) {
-				Robot.driveState = DriveState.REVERSE;
-			} else {
-				Robot.driveState = DriveState.STILL;
-			}
-		}
-
-		drive.arcadeDrive(moveValue, rotateValue);
-
-	}
+	
+//	public void arcadeDrive(double moveValue, double rotateValue) {
+//
+//		// Set the proper drive state based on values passed in
+//		if(Robot.driveState != DriveState.PID){
+//			if (moveValue > 0.3 && rotateValue > -0.3 && rotateValue < 0.3) {
+//				Robot.driveState = DriveState.FORWARD;
+//			} else if (rotateValue > 0.3) {
+//				Robot.driveState = DriveState.TURNING_RIGHT;
+//			} else if (rotateValue < -0.3) {
+//				Robot.driveState = DriveState.TURNING_LEFT;
+//			} else if (moveValue < -0.3 && rotateValue > -0.3 && rotateValue < 0.3) {
+//				Robot.driveState = DriveState.REVERSE;
+//			} else {
+//				Robot.driveState = DriveState.STILL;
+//			}
+//		}
+//
+//		drive.arcadeDrive(moveValue, rotateValue);
+//
+//	}
 
 	// Drive function using tank drive (2 sticks, 1 left one right, each
 	// controlling one side of drivetrain)
@@ -82,5 +83,60 @@ public class DriveTrain extends Subsystem {
 
 		drive.tankDrive(leftValue, rightValue);
 
+	}
+	public void ArcadeDrive(double moveValue, double rotateValue){
+		double leftMotorSpeed;
+	    double rightMotorSpeed;
+	    double leftFrontSpeed = 0;
+	    double rightFrontSpeed = 0;
+	    if (moveValue >= 0.0) {
+	        moveValue = (moveValue * moveValue);
+	      } else {
+	        moveValue = -(moveValue * moveValue);
+	      }
+	      if (rotateValue >= 0.0) {
+	        rotateValue = (rotateValue * rotateValue);
+	      } else {
+	        rotateValue = -(rotateValue * rotateValue);
+	      }
+	    
+	    if (moveValue > 0.0) {
+	      if (rotateValue > 0.0) {
+	        leftMotorSpeed = moveValue - rotateValue;
+	        rightMotorSpeed = Math.max(moveValue, rotateValue);
+	      } else {
+	        leftMotorSpeed = Math.max(moveValue, -rotateValue);
+	        rightMotorSpeed = moveValue + rotateValue;
+	      }
+	    } else {
+	      if (rotateValue > 0.0) {
+	        leftMotorSpeed = -Math.max(-moveValue, rotateValue);
+	        rightMotorSpeed = moveValue + rotateValue;
+	      } else {
+	        leftMotorSpeed = moveValue - rotateValue;
+	        rightMotorSpeed = -Math.max(-moveValue, -rotateValue);
+	      }
+	    }
+
+	    //if we want to turn
+	    if(Math.abs(rotateValue) > Math.abs(moveValue)) {
+	    	frontLeftMotor.set(leftMotorSpeed);
+	    	frontRightMotor.set(-rightMotorSpeed);
+	    	rearLeftMotor.set(leftMotorSpeed);
+	    	rearRightMotor.set(-rightMotorSpeed);
+	    } else if(Math.abs(moveValue) > Math.abs(rotateValue)) {
+	    	leftFrontSpeed = leftMotorSpeed;
+	    	rightFrontSpeed = -rightMotorSpeed;
+	    	
+	    	frontLeftMotor.set(leftFrontSpeed);
+	    	frontRightMotor.set(rightFrontSpeed);
+	    	rearLeftMotor.set(0);
+	    	rearRightMotor.set(0);
+	    } else{ //if we want to go straight and turn
+	    	frontLeftMotor.set(leftMotorSpeed);
+	    	frontRightMotor.set(-rightMotorSpeed);
+	    	rearLeftMotor.set(0);
+	    	rearRightMotor.set(0);
+	    }
 	}
 }

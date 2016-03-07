@@ -10,6 +10,15 @@ import edu.wpi.first.wpilibj.command.Command;
 public class Launch extends Command {
 
 	String status;
+	
+	final double extendedPosition = 0.8;
+	final double retractedPosition = 1.0;
+	final double motorDownSpeed = -0.3;
+	final double motorUpSpeed = 0.6;
+	final double shootSpeed = .85;
+	final double loadSpeed = -0.4;
+	
+	
 	boolean auto = false;
 	public Launch(boolean auto){
 		requires(Robot.launcher);
@@ -30,16 +39,16 @@ public class Launch extends Command {
 	protected void execute() {
 		
 		// spinning launcher motors
-		if (Robot.oi.xb5.get()) {
+		if (Robot.oi.buttonLaunch.get()) {
 			// when lBump is held down run motors for launching
-			Robot.launcher.launch(.85);
+			Robot.launcher.launch(shootSpeed);
 			Robot.launcherState = LauncherState.LAUNCH;
-		} else if (Robot.oi.xb6.get()) {
+		} else if (Robot.oi.buttonIntake.get()) {
 			// when rBump is held down run motors for intake
-			Robot.launcher.launch(-0.4);
+			Robot.launcher.launch(loadSpeed);
 			Robot.launcherState = LauncherState.INTAKE;
 		} else if (auto){
-			Robot.launcher.launch(.85);
+			Robot.launcher.launch(shootSpeed);
 			Robot.launcherState = LauncherState.AUTO;
 			
 		} else {
@@ -50,13 +59,13 @@ public class Launch extends Command {
 		
 		if(Robot.anglerState != AnglerState.PID){
 			// activate angler
-			if (Robot.oi.xb2.get()) {
+			if (Robot.oi.buttonShooterDown.get()) {
 				// when B is held down angle launcher down
-				Robot.launcher.angleLauncher(-.3);
+				Robot.launcher.angleLauncher(motorDownSpeed);
 				Robot.anglerState = AnglerState.ANGLING_DOWN;
-			} else if (Robot.oi.xb3.get()) {
+			} else if (Robot.oi.buttonShooterUp.get()) {
 				// when X is held down, angle launcher up
-				Robot.launcher.angleLauncher(.6);
+				Robot.launcher.angleLauncher(motorUpSpeed);
 				Robot.anglerState = AnglerState.ANGLING_UP;
 			} else {
 				// stop angling
@@ -67,9 +76,9 @@ public class Launch extends Command {
 		
 		//control servo based on state
 		if(Robot.servoState == ServoState.RETRACTED){
-			Robot.launcher.servoControl(1);
+			Robot.launcher.servoControl(extendedPosition);
 		} else if(Robot.servoState == ServoState.EXTENDED){
-			Robot.launcher.servoControl(.0);
+			Robot.launcher.servoControl(retractedPosition);
 		}
 
 	}

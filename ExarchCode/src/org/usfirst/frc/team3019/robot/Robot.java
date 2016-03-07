@@ -78,8 +78,8 @@ public class Robot extends IterativeRobot {
 		solenoidState = SolenoidState.OFF;
 		servoState = ServoState.RETRACTED;
 		
-		camServer = CameraServer.getInstance();
-		camServer.startAutomaticCapture("cam1");
+//		camServer = CameraServer.getInstance();
+//		camServer.startAutomaticCapture("cam1");
 		
 		// instantiate all necessary items
 		instantiateDashButtons();
@@ -128,7 +128,7 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 
 		//normalize potentiometer angle from 1080 to 360 degrees
-		Robot.launcher.potAngle = (Robot.launcher.anglePot.get() / 3) - 168-4.5;
+		Robot.launcher.potAngle = Robot.launcher.getPot() - RobotMap.ShooterAngleOfset;
 
 		
 		visionProcessing();
@@ -161,15 +161,26 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 
 		//normalize potentiometer angle from 1080 to 360 degrees
-		Robot.launcher.potAngle = (Robot.launcher.anglePot.get() / 3) - 168-4.5;
+		Robot.launcher.potAngle = Robot.launcher.getPot() - RobotMap.ShooterAngleOfset;
 		Robot.launcher.targetAngle = table.getNumber("targetAngle", 0);
-
+		
+		
+		
+		//can reset the potentiometer
+		updatePotentiometer();
 		visionProcessing();
 		dashUpdate();
 
 		Scheduler.getInstance().run();
 	}
 
+
+	private void updatePotentiometer() {
+		// TODO Auto-generated method stub
+		if(oi.ResetPotentiometer.get()){
+			RobotMap.ShooterAngleOfset = Math.abs(Robot.launcher.getPot());
+		}
+	}
 	private void dashUpdate() {
 		//target Angle
 		SmartDashboard.putNumber("visTargetAngle", Robot.launcher.targetAngle);
@@ -207,4 +218,5 @@ public class Robot extends IterativeRobot {
 		LiveWindow.run();
 		Scheduler.getInstance().run();
 	}
+
 }
