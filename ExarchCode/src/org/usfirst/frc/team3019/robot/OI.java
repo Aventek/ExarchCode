@@ -17,7 +17,7 @@ public class OI {
 	
 	/* xbox controller */
 	public Joystick xbox1 = new Joystick(0);
-	public Joystick xbox2 = new Joystick(0);
+	public Joystick xbox2 = new Joystick(1);
 
 	/*AXES USED
 	 * 
@@ -69,25 +69,21 @@ public class OI {
 			if(Robot.anglerState != AnglerState.PID){
 				buttonPIDAngle.whenPressed(new PIDAngle());
 			}else{
-//				xb8.whenPressed(new PIDAngle("SKIP"));
+				
 			}
-//			xb8.whenPressed(new ShootCommandGroup());
 			
 		}
 
 		if (RobotMap.usePneumatics) {
-
 			// Compressor 
 			buttonToggleSoli.whenPressed(new SolenoidToggle());
-
 		}
 
 		if (RobotMap.usePuncher) {
-
 			// launch servo command
 			buttonFalconPunch.whenPressed(new FalconPunch());
 
 		}
-
+		ResetPotentiometer.whenPressed(new resetPotentiometer());
 	}
 }

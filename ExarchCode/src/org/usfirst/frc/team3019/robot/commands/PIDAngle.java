@@ -36,7 +36,7 @@ public class PIDAngle extends Command {
 		Robot.PIDAngling.distance = SmartDashboard.getNumber("distance", 0);
 
 		//for custom angle and not auto angle
-		if(targetAngle != -190){
+		if(targetAngle != -180){
 			Robot.PIDAngling.angle = targetAngle;
 			// calculation for 10 m/s shoot speed
 		} else if(Robot.table.getNumber("VISdistance", 0) > 50 && Robot.table.getNumber("VISdistance", 0) < 100){
@@ -48,8 +48,6 @@ public class PIDAngle extends Command {
 		}else if(Robot.table.getNumber("VISdistance", 0) > 140 && Robot.table.getNumber("VISdistance", 0) < 160){
 			Robot.PIDAngling.angle = Robot.launcher.targetAngle - 2;
 		}
-		//0.2075
-//		* (Math.pow(Robot.PIDAngling.distance, 2) - 0.1817 * (Robot.PIDAngling.distance) + 44.395);
 
 		SmartDashboard.putNumber("targetAngle", Robot.PIDAngling.angle);
 		Robot.PIDAngling.setSetpoint(0);
@@ -67,7 +65,7 @@ public class PIDAngle extends Command {
 	}
 
 	protected void execute() {
-		if(!Robot.oi.xbox.getRawButton(8) && isRunning){
+		if(!Robot.oi.xbox1.getRawButton(8) && isRunning){
 			exit = true;
 		}
 	}

@@ -1,42 +1,43 @@
 package org.usfirst.frc.team3019.robot.commands;
 
 import org.usfirst.frc.team3019.robot.Robot;
-import org.usfirst.frc.team3019.robot.subsystems.MXPBreakout;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class SensorOutput extends Command {
+public class resetPotentiometer extends Command {
 
-	double first = 0;
-	double corrected = 0;
-
-	public SensorOutput() {
-		requires(Robot.mxpBreakout);
+	public resetPotentiometer() {
+		// TODO Auto-generated constructor stub
+		requires(Robot.launcher);
 	}
-
 	@Override
 	protected void initialize() {
-		first = Robot.mxpBreakout.getYaw();
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	protected void execute() {
-		corrected = first - Robot.mxpBreakout.getYaw();
-
+		// TODO Auto-generated method stub
+		Robot.launcher.resetPotentiometer();	
 	}
 
 	@Override
 	protected boolean isFinished() {
+		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	protected void end() {
+		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	protected void interrupted() {
+		// TODO Auto-generated method stub
+
 	}
 
 }

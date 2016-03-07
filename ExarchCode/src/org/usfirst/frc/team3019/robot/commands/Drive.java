@@ -30,16 +30,14 @@ public class Drive extends Command {
 	@Override
 	protected void execute() {
 		// Simple arcade drive from lStick axes if not doing PID
-		if (Robot.driveState != DriveState.PID) {
-			double moveValue = Robot.oi.xbox.getY();
-			double rotateValue = -Robot.oi.xbox.getX();
+		if(Robot.driveState == DriveState.AUTO){
+			Robot.driveTrain.ArcadeDrive(speed, turn);
+		} else if (Robot.driveState != DriveState.PID) {
+			double moveValue = Robot.oi.xbox1.getY();
+			double rotateValue = -Robot.oi.xbox1.getX();
 			Robot.driveTrain.ArcadeDrive(moveValue * RobotMap.driveNerf,
 					rotateValue * RobotMap.turnNerf);
 		}
-//		double moveValue = Robot.oi.xbox.getY();
-//		double rotateValue = -Robot.oi.xbox.getX();
-//		Robot.driveTrain.arcadeDrive(moveValue, rotateValue);
-//		Robot.driveTrain.tankDrive(Robot.oi.xbox.getRawAxis(5), Robot.oi.xbox.getY() * 0.75);
 
 	}
 

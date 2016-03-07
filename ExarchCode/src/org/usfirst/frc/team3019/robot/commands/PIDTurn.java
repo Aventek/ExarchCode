@@ -54,7 +54,7 @@ public class PIDTurn extends Command {
 		// when done aiming, stop motors, disable PID, and set drivestate back
 		// to Joystick
 		Robot.PIDDriving.disable();
-		Robot.driveTrain.arcadeDrive(0, 0);
+		Robot.driveTrain.ArcadeDrive(0, 0);
 		Robot.driveState = DriveState.STILL;
 
 		// Robot.launcher.hasAligned = true;

@@ -30,10 +30,6 @@ public class DriveTrain extends Subsystem {
 		frontRightMotor = new VictorSP(RobotMap.rightFrontDrivePWM);
 		rearLeftMotor = new VictorSP(RobotMap.leftRearDrivePWM);
 		frontLeftMotor = new VictorSP(RobotMap.leftFrontDrivePWM);
-		
-		// standard drive system
-		drive = new RobotDrive(frontLeftMotor,rearLeftMotor,frontRightMotor,rearRightMotor);
-		
 	}
 
 	@Override
@@ -42,28 +38,6 @@ public class DriveTrain extends Subsystem {
 	}
 
 	// DO: Drive function using arcade drive (1 stick with twist to turn)
-	
-//	public void arcadeDrive(double moveValue, double rotateValue) {
-//
-//		// Set the proper drive state based on values passed in
-//		if(Robot.driveState != DriveState.PID){
-//			if (moveValue > 0.3 && rotateValue > -0.3 && rotateValue < 0.3) {
-//				Robot.driveState = DriveState.FORWARD;
-//			} else if (rotateValue > 0.3) {
-//				Robot.driveState = DriveState.TURNING_RIGHT;
-//			} else if (rotateValue < -0.3) {
-//				Robot.driveState = DriveState.TURNING_LEFT;
-//			} else if (moveValue < -0.3 && rotateValue > -0.3 && rotateValue < 0.3) {
-//				Robot.driveState = DriveState.REVERSE;
-//			} else {
-//				Robot.driveState = DriveState.STILL;
-//			}
-//		}
-//
-//		drive.arcadeDrive(moveValue, rotateValue);
-//
-//	}
-
 	// Drive function using tank drive (2 sticks, 1 left one right, each
 	// controlling one side of drivetrain)
 	public void tankDrive(double leftValue, double rightValue) {
@@ -120,23 +94,23 @@ public class DriveTrain extends Subsystem {
 
 	    //if we want to turn
 	    if(Math.abs(rotateValue) > Math.abs(moveValue)) {
-	    	frontLeftMotor.set(leftMotorSpeed);
+	    	frontLeftMotor.set(leftMotorSpeed * RobotMap.driveStraightCorrection);
 	    	frontRightMotor.set(-rightMotorSpeed);
-	    	rearLeftMotor.set(leftMotorSpeed);
+	    	rearLeftMotor.set(leftMotorSpeed * RobotMap.driveStraightCorrection);
 	    	rearRightMotor.set(-rightMotorSpeed);
 	    } else if(Math.abs(moveValue) > Math.abs(rotateValue)) {
-	    	leftFrontSpeed = leftMotorSpeed;
+	    	leftFrontSpeed = leftMotorSpeed * RobotMap.driveStraightCorrection;
 	    	rightFrontSpeed = -rightMotorSpeed;
 	    	
 	    	frontLeftMotor.set(leftFrontSpeed);
 	    	frontRightMotor.set(rightFrontSpeed);
-	    	rearLeftMotor.set(0);
-	    	rearRightMotor.set(0);
+//	    	rearLeftMotor.set(0);
+//	    	rearRightMotor.set(0);
 	    } else{ //if we want to go straight and turn
-	    	frontLeftMotor.set(leftMotorSpeed);
+	    	frontLeftMotor.set(leftMotorSpeed * RobotMap.driveStraightCorrection);
 	    	frontRightMotor.set(-rightMotorSpeed);
-	    	rearLeftMotor.set(0);
-	    	rearRightMotor.set(0);
+//	    	rearLeftMotor.set(0);
+//	    	rearRightMotor.set(0);
 	    }
 	}
 }

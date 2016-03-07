@@ -11,6 +11,7 @@ public class RobotMap {
 	// constants used in robot
 	public static final boolean runArms = false;
 	public static float kP = 0.03f;
+	public static double driveStraightCorrection = .9;
 	public static double driveNerf = 1;
 	public static double turnNerf = 1;
 	public static double angleOff;

@@ -11,8 +11,8 @@ public class Launch extends Command {
 
 	String status;
 	
-	final double extendedPosition = 0.8;
-	final double retractedPosition = 1.0;
+	public static final double extendedPosition = 1;
+	public static final double retractedPosition = 0.75;
 	final double motorDownSpeed = -0.3;
 	final double motorUpSpeed = 0.6;
 	final double shootSpeed = .85;
