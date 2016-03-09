@@ -14,7 +14,8 @@ public class AutonomousCommandGroup extends CommandGroup {
     	//lower the arms to lower cog
     	if(mode == AutonomousMode.LOW_BAR){
     		//drive forward
-    		addSequential(new Drive(-.8,0),2);
+    		addSequential(new Drive(-.8,0),2.5);
+    		addSequential(new Drive(0,0),1);
     		Shoot();
     	} else if (mode == AutonomousMode.MOAT){
     		//drive forward
@@ -38,17 +39,22 @@ public class AutonomousCommandGroup extends CommandGroup {
     public void Shoot(){
     	//line up the shot
     	addSequential(new PIDTurn());
+    	addSequential(new Drive(0,0), .5);
 		addSequential(new PIDTurn());
+    	addSequential(new Drive(0,0), .5);		
+		addSequential(new PIDTurn());
+    	addSequential(new Drive(0,0), .5);
+		addSequential(new PIDTurn());
+    	addSequential(new Drive(0,0), .5);
 		//set target angle
-		addSequential(new PIDAngle());
+		addSequential(new PIDAngle(),3);
 		//spin up ball
 		addSequential(new Launch(true),3);
 		//FALCON PUUUUNCH
-		addSequential(new FalconPunch(),1);
+		addSequential(new Jerk());
 		//do nothing for a second
 		//reset shooter
-		addSequential(new FalconPunch(),1);
 		//level the shooter
-		addSequential(new PIDAngle(0));
+//		addSequential(new PIDAngle(0));
     }
 }

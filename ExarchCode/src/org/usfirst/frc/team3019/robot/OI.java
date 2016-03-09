@@ -58,7 +58,7 @@ public class OI {
 	public Button xb10 = new JoystickButton(xbox1, 10);
 	
 	public Button ResetPotentiometer = new JoystickButton(xbox2, 2);
-
+	public Button buttonJerk = new JoystickButton(xbox2, 5);
 	public OI() {
 		
 		if (RobotMap.usePID) {
@@ -81,9 +81,10 @@ public class OI {
 
 		if (RobotMap.usePuncher) {
 			// launch servo command
-			buttonFalconPunch.whenPressed(new FalconPunch());
+			buttonFalconPunch.whenPressed(new Jerk());
 
 		}
 		ResetPotentiometer.whenPressed(new resetPotentiometer());
+		buttonJerk.whenPressed(new Jerk());
 	}
 }

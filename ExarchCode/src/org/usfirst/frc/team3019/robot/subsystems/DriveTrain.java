@@ -94,21 +94,21 @@ public class DriveTrain extends Subsystem {
 
 	    //if we want to turn
 	    if(Math.abs(rotateValue) > Math.abs(moveValue)) {
-	    	frontLeftMotor.set(leftMotorSpeed * RobotMap.driveStraightCorrection);
-	    	frontRightMotor.set(-rightMotorSpeed);
-	    	rearLeftMotor.set(leftMotorSpeed * RobotMap.driveStraightCorrection);
-	    	rearRightMotor.set(-rightMotorSpeed);
+	    	frontLeftMotor.set(leftMotorSpeed);
+	    	frontRightMotor.set(-rightMotorSpeed * RobotMap.driveStraightCorrection);
+	    	rearLeftMotor.set(leftMotorSpeed);
+	    	rearRightMotor.set(-rightMotorSpeed * RobotMap.driveStraightCorrection);
 	    } else if(Math.abs(moveValue) > Math.abs(rotateValue)) {
-	    	leftFrontSpeed = leftMotorSpeed * RobotMap.driveStraightCorrection;
-	    	rightFrontSpeed = -rightMotorSpeed;
+	    	leftFrontSpeed = leftMotorSpeed;
+	    	rightFrontSpeed = -rightMotorSpeed * RobotMap.driveStraightCorrection;
 	    	
 	    	frontLeftMotor.set(leftFrontSpeed);
 	    	frontRightMotor.set(rightFrontSpeed);
 //	    	rearLeftMotor.set(0);
 //	    	rearRightMotor.set(0);
 	    } else{ //if we want to go straight and turn
-	    	frontLeftMotor.set(leftMotorSpeed * RobotMap.driveStraightCorrection);
-	    	frontRightMotor.set(-rightMotorSpeed);
+	    	frontLeftMotor.set(leftMotorSpeed);
+	    	frontRightMotor.set(-rightMotorSpeed * RobotMap.driveStraightCorrection);
 //	    	rearLeftMotor.set(0);
 //	    	rearRightMotor.set(0);
 	    }

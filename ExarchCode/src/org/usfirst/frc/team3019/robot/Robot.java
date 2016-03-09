@@ -2,7 +2,7 @@
 package org.usfirst.frc.team3019.robot;
 
 import org.usfirst.frc.team3019.robot.commands.AutonomousCommandGroup;
-import org.usfirst.frc.team3019.robot.commands.FalconPunch;
+import org.usfirst.frc.team3019.robot.commands.Jerk;
 import org.usfirst.frc.team3019.robot.commands.PIDAngle;
 import org.usfirst.frc.team3019.robot.commands.PIDTurn;
 import org.usfirst.frc.team3019.robot.commands.SolenoidToggle;
@@ -113,7 +113,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("PIDTurn", new PIDTurn());
 		SmartDashboard.putData("PIDAngle", new PIDAngle());
 		SmartDashboard.putData("ToggleSolenoid", new SolenoidToggle());
-		SmartDashboard.putData("ServoPunch", new FalconPunch());
+		SmartDashboard.putData("ServoPunch", new Jerk());
 
 	}
 
@@ -155,6 +155,11 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void autonomousPeriodic() {
+		Robot.launcher.potAngle = Robot.launcher.getPot() - RobotMap.ShooterAngleOfset;
+		Robot.launcher.targetAngle = table.getNumber("targetAngle", 0);
+
+		dashUpdate();
+		visionProcessing();
 		Scheduler.getInstance().run();
 	}
 
