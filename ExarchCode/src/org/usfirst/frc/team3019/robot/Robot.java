@@ -1,7 +1,8 @@
 
 package org.usfirst.frc.team3019.robot;
 
-import org.usfirst.frc.team3019.robot.commands.FalconPunch;
+import org.usfirst.frc.team3019.robot.commands.AutonomousCommandGroup;
+import org.usfirst.frc.team3019.robot.commands.Jerk;
 import org.usfirst.frc.team3019.robot.commands.PIDAngle;
 import org.usfirst.frc.team3019.robot.commands.PIDTurn;
 import org.usfirst.frc.team3019.robot.commands.SolenoidToggle;
@@ -13,6 +14,7 @@ import org.usfirst.frc.team3019.robot.subsystems.PIDAngling;
 import org.usfirst.frc.team3019.robot.subsystems.PIDDriving;
 import org.usfirst.frc.team3019.robot.subsystems.Pneumatics;
 import org.usfirst.frc.team3019.robot.utilities.AnglerState;
+import org.usfirst.frc.team3019.robot.utilities.AutonomousMode;
 import org.usfirst.frc.team3019.robot.utilities.DriveState;
 import org.usfirst.frc.team3019.robot.utilities.LauncherState;
 import org.usfirst.frc.team3019.robot.utilities.ServoState;
@@ -68,6 +70,15 @@ public class Robot extends IterativeRobot {
 
 	public Robot() {
 		instantiateSubs();
+		
+		chooser1 = new SendableChooser();
+		chooser1.addDefault("Go To", new AutonomousCommandGroup(AutonomousMode.GOTO));
+		chooser1.addObject("Low Bar", new AutonomousCommandGroup(AutonomousMode.LOW_BAR));
+		chooser1.addObject("Moat", new AutonomousCommandGroup(AutonomousMode.MOAT));
+		chooser1.addObject("Ramparts", new AutonomousCommandGroup(AutonomousMode.RAMPART));
+		chooser1.addObject("Rock Wall", new AutonomousCommandGroup(AutonomousMode.ROCKWALL));
+		chooser1.addObject("Rought Terrain", new AutonomousCommandGroup(AutonomousMode.ROUGH_TERRAAIN));
+		chooser1.addObject("Spy", new AutonomousCommandGroup(AutonomousMode.SPY));
 
 	}
 
@@ -78,8 +89,6 @@ public class Robot extends IterativeRobot {
 		solenoidState = SolenoidState.OFF;
 		servoState = ServoState.RETRACTED;
 		
-//		camServer = CameraServer.getInstance();
-//		camServer.startAutomaticCapture("cam1");
 		
 		// instantiate all necessary items
 		instantiateDashButtons();
@@ -104,7 +113,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putData("PIDTurn", new PIDTurn());
 		SmartDashboard.putData("PIDAngle", new PIDAngle());
 		SmartDashboard.putData("ToggleSolenoid", new SolenoidToggle());
-		SmartDashboard.putData("ServoPunch", new FalconPunch());
+		SmartDashboard.putData("ServoPunch", new Jerk());
 
 	}
 
@@ -123,6 +132,7 @@ public class Robot extends IterativeRobot {
 	public void disabledInit() {
 		Robot.PIDAngling.disable();
 		Robot.PIDDriving.disable();
+		SmartDashboard.putData("Autonomous Mode", chooser1);
 	}
 
 	public void disabledPeriodic() {
@@ -130,7 +140,7 @@ public class Robot extends IterativeRobot {
 		//normalize potentiometer angle from 1080 to 360 degrees
 		Robot.launcher.potAngle = Robot.launcher.getPot() - RobotMap.ShooterAngleOfset;
 
-		
+		SmartDashboard.putData("Autonomous Mode", chooser1);
 		visionProcessing();
 		dashUpdate();
 		
@@ -138,11 +148,18 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void autonomousInit() {
+		autonomousCommand = (AutonomousCommandGroup)chooser1.getSelected();
 		if (autonomousCommand != null)
 			autonomousCommand.start();
+			driveState = driveState.AUTO;
 	}
 
 	public void autonomousPeriodic() {
+		Robot.launcher.potAngle = Robot.launcher.getPot() - RobotMap.ShooterAngleOfset;
+		Robot.launcher.targetAngle = table.getNumber("targetAngle", 0);
+
+		dashUpdate();
+		visionProcessing();
 		Scheduler.getInstance().run();
 	}
 
@@ -167,7 +184,6 @@ public class Robot extends IterativeRobot {
 		
 		
 		//can reset the potentiometer
-		updatePotentiometer();
 		visionProcessing();
 		dashUpdate();
 
@@ -175,16 +191,10 @@ public class Robot extends IterativeRobot {
 	}
 
 
-	private void updatePotentiometer() {
-		// TODO Auto-generated method stub
-		if(oi.ResetPotentiometer.get()){
-			RobotMap.ShooterAngleOfset = Math.abs(Robot.launcher.getPot());
-		}
-	}
 	private void dashUpdate() {
 		//target Angle
 		SmartDashboard.putNumber("visTargetAngle", Robot.launcher.targetAngle);
-		
+		SmartDashboard.putNumber("ShooterAngleOfset", RobotMap.ShooterAngleOfset);
 		SmartDashboard.putNumber("servoPosition", Robot.launcher.pusher.get());
 		// putting azimuthal to SmartDash
 		SmartDashboard.putNumber("azimuth", RobotMap.angleOff);

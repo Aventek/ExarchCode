@@ -14,58 +14,47 @@ public class AutonomousCommandGroup extends CommandGroup {
     	//lower the arms to lower cog
     	if(mode == AutonomousMode.LOW_BAR){
     		//drive forward
-    		addSequential(new Drive(.6,0),3);
+    		addSequential(new Drive(-.8,0),2.5);
+    		addSequential(new Drive(0,0),1);
     		Shoot();
     	} else if (mode == AutonomousMode.MOAT){
     		//drive forward
-    		addSequential(new Drive(.6,0),3);
+    		addSequential(new Drive(-.6,0),2);
     		Shoot();
     	} else if (mode == AutonomousMode.RAMPART){
     		//drive forward
-    		addSequential(new Drive(.6,0),3);
+    		addSequential(new Drive(-.6,0),2);
     		Shoot();
     	} else if (mode == AutonomousMode.ROCKWALL){
-    		addSequential(new Drive(.6,0),3);
+    		addSequential(new Drive(-.6,0),2);
     		Shoot();
     	} else if (mode == AutonomousMode.SPY){
     		Shoot();
     	} else {
     		//drive forward
-    		addSequential(new Drive(.6,0),3);
+    		addSequential(new Drive(-.6,0),2);
     	}
     	
-        // Add Commands here:
-        // e.g. addSequential(new Command1());
-        //      addSequential(new Command2());
-        // these will run in order.
-
-        // To run multiple commands at the same time,
-        // use addParallel()
-        // e.g. addParallel(new Command1());
-        //      addSequential(new Command2());
-        // Command1 and Command2 will run in parallel.
-
-        // A command group will require all of the subsystems that each member
-        // would require.
-        // e.g. if Command1 requires chassis, and Command2 requires arm,
-        // a CommandGroup containing them would require both the chassis and the
-        // arm.
-    }
+     }
     public void Shoot(){
     	//line up the shot
     	addSequential(new PIDTurn());
+    	addSequential(new Drive(0,0), .5);
 		addSequential(new PIDTurn());
+    	addSequential(new Drive(0,0), .5);		
+		addSequential(new PIDTurn());
+    	addSequential(new Drive(0,0), .5);
+		addSequential(new PIDTurn());
+    	addSequential(new Drive(0,0), .5);
 		//set target angle
-		addSequential(new PIDAngle());
+		addSequential(new PIDAngle(),3);
 		//spin up ball
 		addSequential(new Launch(true),3);
 		//FALCON PUUUUNCH
-		addSequential(new FalconPunch(),1);
+		addSequential(new Jerk());
 		//do nothing for a second
-		addSequential(new FalconPunch(true),1);
 		//reset shooter
-		addSequential(new FalconPunch(),1);
 		//level the shooter
-		addSequential(new PIDAngle(0));
+//		addSequential(new PIDAngle(0));
     }
 }

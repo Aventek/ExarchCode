@@ -1,5 +1,6 @@
 package org.usfirst.frc.team3019.robot.subsystems;
 
+import org.usfirst.frc.team3019.robot.Robot;
 import org.usfirst.frc.team3019.robot.RobotMap;
 import org.usfirst.frc.team3019.robot.commands.Launch;
 
@@ -26,7 +27,7 @@ public class Launcher extends Subsystem {
 
 		// Servo to push ball into launcher
 		pusher = new Servo(RobotMap.launchServoPWM);
-		pusher.set(0.75);
+		pusher.set(Launch.retractedPosition);
 
 		// Motors used for launching mechanism
 		leftLaunch = new VictorSP(RobotMap.leftLaunchPWM);
@@ -72,7 +73,12 @@ public class Launcher extends Subsystem {
 
 	}
 	public double getPot(){
-		return anglePot.get()/3;
+		return anglePot.get() / 3;
+	}
+
+	public void resetPotentiometer() {
+		// TODO Auto-generated method stub
+		RobotMap.ShooterAngleOfset = Math.abs(getPot());
 	}
 
 }
