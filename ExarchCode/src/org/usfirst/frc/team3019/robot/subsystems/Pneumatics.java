@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Pneumatics extends Subsystem {
 
 	// assign objects to correct ports
-//	Compressor c = new Compressor(0);
+	Compressor c = new Compressor(0);
 	DoubleSolenoid soli1 = new DoubleSolenoid(1, 0);
 	DoubleSolenoid soli2 = new DoubleSolenoid(2,3);
 
@@ -16,8 +16,8 @@ public class Pneumatics extends Subsystem {
 		// when pneumatics starts set solenoid off and start compressing
 		soli1.set(DoubleSolenoid.Value.kOff);
 		soli2.set(DoubleSolenoid.Value.kOff);
-//		c.start();
-//		c.setClosedLoopControl(true);
+		c.start();
+		c.setClosedLoopControl(true);
 
 	}
 

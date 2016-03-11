@@ -3,6 +3,7 @@ package org.usfirst.frc.team3019.robot.subsystems;
 import org.usfirst.frc.team3019.robot.RobotMap;
 import org.usfirst.frc.team3019.robot.commands.Lift;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -15,6 +16,11 @@ public class Lifter extends Subsystem {
 	// here. Call these from Commands.
 	VictorSP launchMotor1;
 	VictorSP launchMotor2;
+	public DigitalInput armLimitSwitch;
+
+	public boolean canGoUp = true;
+	public boolean canGoDown = true;
+	
 
 	public Lifter() {
 
@@ -22,6 +28,9 @@ public class Lifter extends Subsystem {
 		// motors
 		launchMotor1 = new VictorSP(RobotMap.liftAnglerPWM);
 		launchMotor2 = new VictorSP(RobotMap.liftAngler2PWM);
+		
+		//lift motor limit switch
+		armLimitSwitch = new DigitalInput(1);
 
 		// invert one motor so they both spin the same way
 		launchMotor2.setInverted(true);

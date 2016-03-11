@@ -15,7 +15,7 @@ public class RobotMap {
 	public static double driveNerf = 1;
 	public static double turnNerf = 1;
 	public static double angleOff;
-	public static double ShooterAngleOfset = 174;
+	public static double ShooterAngleOfset = 174 - 30;
 	public static boolean autoAngle = false;
 
 	// systems in use, change to pos or neg here
@@ -24,6 +24,7 @@ public class RobotMap {
 	public static final boolean usePuncher = true;
 	public static final boolean useAutoAlign = false;
 	public static int numRan = 0;
+	public static final boolean useArms = true;;
 
 	// pwm ports
 	public static final int leftRearDrivePWM = 0;//3
@@ -41,4 +42,7 @@ public class RobotMap {
 	public static final int launchAnglerPWM = 8;
 	public static final int launchServoPWM = 9;
 
+	//digital input ports
+	public static final int liftSwitchDIO = 1;
+	
 }

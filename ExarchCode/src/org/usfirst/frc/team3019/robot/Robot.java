@@ -2,23 +2,9 @@
 package org.usfirst.frc.team3019.robot;
 
 import org.usfirst.frc.team3019.robot.commands.AutonomousCommandGroup;
-import org.usfirst.frc.team3019.robot.commands.Jerk;
-import org.usfirst.frc.team3019.robot.commands.PIDAngle;
-import org.usfirst.frc.team3019.robot.commands.PIDTurn;
-import org.usfirst.frc.team3019.robot.commands.SolenoidToggle;
-import org.usfirst.frc.team3019.robot.subsystems.DriveTrain;
-import org.usfirst.frc.team3019.robot.subsystems.Launcher;
-import org.usfirst.frc.team3019.robot.subsystems.Lifter;
-import org.usfirst.frc.team3019.robot.subsystems.MXPBreakout;
-import org.usfirst.frc.team3019.robot.subsystems.PIDAngling;
-import org.usfirst.frc.team3019.robot.subsystems.PIDDriving;
-import org.usfirst.frc.team3019.robot.subsystems.Pneumatics;
-import org.usfirst.frc.team3019.robot.utilities.AnglerState;
-import org.usfirst.frc.team3019.robot.utilities.AutonomousMode;
-import org.usfirst.frc.team3019.robot.utilities.DriveState;
-import org.usfirst.frc.team3019.robot.utilities.LauncherState;
-import org.usfirst.frc.team3019.robot.utilities.ServoState;
-import org.usfirst.frc.team3019.robot.utilities.SolenoidState;
+import org.usfirst.frc.team3019.robot.commands.*;
+import org.usfirst.frc.team3019.robot.subsystems.*;
+import org.usfirst.frc.team3019.robot.utilities.*;
 
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -60,6 +46,7 @@ public class Robot extends IterativeRobot {
 	public static DriveState driveState;
 	public static SolenoidState solenoidState;
 	public static ServoState servoState;
+	public static LiftState liftState;
 	
 	public static CameraServer camServer;
 	
@@ -88,7 +75,7 @@ public class Robot extends IterativeRobot {
 		driveState = DriveState.STILL;
 		solenoidState = SolenoidState.OFF;
 		servoState = ServoState.RETRACTED;
-		
+		liftState = LiftState.TELEOP;
 		
 		// instantiate all necessary items
 		instantiateDashButtons();
@@ -151,7 +138,8 @@ public class Robot extends IterativeRobot {
 		autonomousCommand = (AutonomousCommandGroup)chooser1.getSelected();
 		if (autonomousCommand != null)
 			autonomousCommand.start();
-			driveState = driveState.AUTO;
+			driveState = DriveState.AUTO;
+			liftState = LiftState.AUTO;
 	}
 
 	public void autonomousPeriodic() {
@@ -160,6 +148,8 @@ public class Robot extends IterativeRobot {
 
 		dashUpdate();
 		visionProcessing();
+		testLimitSwitch();
+		
 		Scheduler.getInstance().run();
 	}
 
@@ -170,6 +160,7 @@ public class Robot extends IterativeRobot {
 		driveState = DriveState.STILL;
 		solenoidState = SolenoidState.OFF;
 		servoState = ServoState.RETRACTED;
+		liftState = LiftState.TELEOP;
 		
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
@@ -186,10 +177,18 @@ public class Robot extends IterativeRobot {
 		//can reset the potentiometer
 		visionProcessing();
 		dashUpdate();
-
+		testLimitSwitch();
 		Scheduler.getInstance().run();
 	}
 
+
+	private void testLimitSwitch() {
+		if(!Robot.lifter.armLimitSwitch.get()){
+			Robot.lifter.canGoDown = true;
+		}else{
+			Robot.lifter.canGoDown = false;
+		}
+	}
 
 	private void dashUpdate() {
 		//target Angle

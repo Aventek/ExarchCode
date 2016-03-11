@@ -59,6 +59,7 @@ public class DriveTrain extends Subsystem {
 
 	}
 	public void ArcadeDrive(double moveValue, double rotateValue){
+		boolean useBoost = Robot.oi.buttonSpeedRacer.get();
 		double leftMotorSpeed;
 	    double rightMotorSpeed;
 	    double leftFrontSpeed = 0;
@@ -104,11 +105,19 @@ public class DriveTrain extends Subsystem {
 	    	
 	    	frontLeftMotor.set(leftFrontSpeed);
 	    	frontRightMotor.set(rightFrontSpeed);
+	    	if(useBoost){
+	    		rearLeftMotor.set(leftFrontSpeed);
+	    		rearRightMotor.set(rightFrontSpeed);
+	    	}
 //	    	rearLeftMotor.set(0);
 //	    	rearRightMotor.set(0);
 	    } else{ //if we want to go straight and turn
 	    	frontLeftMotor.set(leftMotorSpeed);
 	    	frontRightMotor.set(-rightMotorSpeed * RobotMap.driveStraightCorrection);
+	    	if(useBoost){
+	    		rearLeftMotor.set(leftMotorSpeed);
+	    		rearRightMotor.set(-rightMotorSpeed * RobotMap.driveStraightCorrection);
+	    	}
 //	    	rearLeftMotor.set(0);
 //	    	rearRightMotor.set(0);
 	    }

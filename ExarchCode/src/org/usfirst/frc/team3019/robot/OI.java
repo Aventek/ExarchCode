@@ -59,6 +59,9 @@ public class OI {
 	
 	public Button ResetPotentiometer = new JoystickButton(xbox2, 2);
 	public Button buttonJerk = new JoystickButton(xbox2, 5);
+	public Button buttonLowerArms = new JoystickButton(xbox2, 4);
+	public Button buttonSpeedRacer = new JoystickButton(xbox2, 1);
+	
 	public OI() {
 		
 		if (RobotMap.usePID) {
@@ -69,21 +72,20 @@ public class OI {
 			if(Robot.anglerState != AnglerState.PID){
 				buttonPIDAngle.whenPressed(new PIDAngle());
 			}else{
-				
-			}
-			
+			}	
 		}
-
 		if (RobotMap.usePneumatics) {
 			// Compressor 
 			buttonToggleSoli.whenPressed(new SolenoidToggle());
 		}
-
 		if (RobotMap.usePuncher) {
 			// launch servo command
 			buttonFalconPunch.whenPressed(new Jerk());
-
 		}
+		if (RobotMap.useArms){
+			buttonLowerArms.whenPressed(new Lift("lower"));
+		}
+
 		ResetPotentiometer.whenPressed(new resetPotentiometer());
 		buttonJerk.whenPressed(new Jerk());
 	}
