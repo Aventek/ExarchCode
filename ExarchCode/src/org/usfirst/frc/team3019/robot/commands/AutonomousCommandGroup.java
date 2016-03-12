@@ -14,8 +14,9 @@ public class AutonomousCommandGroup extends CommandGroup {
     	//lower the arms to lower cog
     	if(mode == AutonomousMode.LOW_BAR){
     		//drive forward
+    		addSequential(new Drive(0,0), 0.5);
     		addSequential(new Drive(-.8,0),2.5);
-    		addSequential(new Drive(0,0),1);
+    		addSequential(new Drive(0,-.7),.25);
     		Shoot();
     	} else if (mode == AutonomousMode.MOAT){
     		//drive forward

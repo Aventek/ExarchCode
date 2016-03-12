@@ -188,11 +188,14 @@ public class Robot extends IterativeRobot {
 		}else{
 			Robot.lifter.canGoDown = false;
 		}
+		SmartDashboard.putBoolean("switchValue", Robot.lifter.armLimitSwitch.get());
+		SmartDashboard.putBoolean("canGoDown", Robot.lifter.canGoDown);
+				
 	}
 
 	private void dashUpdate() {
 		//target Angle
-		SmartDashboard.putNumber("visTargetAngle", Robot.launcher.targetAngle);
+		SmartDashboard.putNumber("visTargetAngle", table.getNumber("targetAngle",0));
 		SmartDashboard.putNumber("ShooterAngleOfset", RobotMap.ShooterAngleOfset);
 		SmartDashboard.putNumber("servoPosition", Robot.launcher.pusher.get());
 		// putting azimuthal to SmartDash

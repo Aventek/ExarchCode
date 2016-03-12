@@ -61,6 +61,7 @@ public class OI {
 	public Button buttonJerk = new JoystickButton(xbox2, 5);
 	public Button buttonLowerArms = new JoystickButton(xbox2, 4);
 	public Button buttonSpeedRacer = new JoystickButton(xbox2, 1);
+	public Button buttonPowerIntake = new JoystickButton(xbox2, 6);
 	
 	public OI() {
 		

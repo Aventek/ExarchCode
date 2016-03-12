@@ -45,7 +45,13 @@ public class Launch extends Command {
 			Robot.launcherState = LauncherState.LAUNCH;
 		} else if (Robot.oi.buttonIntake.get()) {
 			// when rBump is held down run motors for intake
-			Robot.launcher.launch(loadSpeed);
+			Robot.launcherState = LauncherState.INTAKE;
+			
+			if(Robot.oi.buttonPowerIntake.get()){
+				Robot.launcher.launch(-1);
+			}else{
+				Robot.launcher.launch(loadSpeed);
+			}
 			Robot.launcherState = LauncherState.INTAKE;
 		} else if (auto){
 			Robot.launcher.launch(shootSpeed);

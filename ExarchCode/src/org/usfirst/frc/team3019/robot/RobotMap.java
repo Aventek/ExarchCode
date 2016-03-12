@@ -11,20 +11,20 @@ public class RobotMap {
 	// constants used in robot
 	public static final boolean runArms = false;
 	public static float kP = 0.03f;
-	public static double driveStraightCorrection = .6;
+	public static double driveStraightCorrection = 1;
 	public static double driveNerf = 1;
-	public static double turnNerf = 1;
+	public static double turnNerf = 0.8;
 	public static double angleOff;
-	public static double ShooterAngleOfset = 174 - 30;
+	public static double ShooterAngleOfset = 151;
 	public static boolean autoAngle = false;
 
 	// systems in use, change to pos or neg here
 	public static final boolean usePneumatics = true;
 	public static final boolean usePID = true;
 	public static final boolean usePuncher = true;
-	public static final boolean useAutoAlign = false;
+	public static final boolean useAutoAlign = true;
 	public static int numRan = 0;
-	public static final boolean useArms = true;;
+	public static final boolean useArms = true;
 
 	// pwm ports
 	public static final int leftRearDrivePWM = 0;//3

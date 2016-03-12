@@ -28,21 +28,21 @@ public class Lift extends Command {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		if(Robot.liftState == LiftState.TELEOP){
-			double rightAxisValue = -Robot.oi.xbox2.getRawAxis(5);
+			double rightAxisValue = Robot.oi.xbox2.getRawAxis(5);
 			Robot.lifter.canGoUp = true;
 			Robot.lifter.canGoDown = true;
-			if(rightAxisValue > 0.1 && Robot.lifter.canGoUp){
-				liftSpeed = rightAxisValue * 0.75;
-			}else if(rightAxisValue < -0.1 && Robot.lifter.canGoDown){
-				liftSpeed = rightAxisValue * 0.75;
+			if(rightAxisValue < -0.1){
+				liftSpeed = rightAxisValue * 0.4;
+			}else if(rightAxisValue > 0.1 && !Robot.lifter.armLimitSwitch.get()){
+				liftSpeed = rightAxisValue * 0.6;
 			}else{
 				liftSpeed = 0;
 			}
 		}
 		
 		if(Robot.liftState == LiftState.AUTO || Robot.liftState == LiftState.LOWER){
-			if(Robot.lifter.canGoDown){
-				liftSpeed = -0.5;
+			if(!Robot.lifter.armLimitSwitch.get()){
+				liftSpeed = 0.7;
 			}else{
 				liftSpeed = 0;
 				Robot.liftState = LiftState.TELEOP;
