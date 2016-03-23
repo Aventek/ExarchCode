@@ -15,7 +15,7 @@ public class RobotMap {
 	public static double driveNerf = 1;
 	public static double turnNerf = 0.8;
 	public static double angleOff;
-	public static double ShooterAngleOfset = 151;
+	public static double ShooterAngleOfset = 439;
 	public static boolean autoAngle = false;
 
 	// systems in use, change to pos or neg here

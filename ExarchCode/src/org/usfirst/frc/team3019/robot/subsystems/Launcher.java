@@ -73,7 +73,7 @@ public class Launcher extends Subsystem {
 
 	}
 	public double getPot(){
-		return anglePot.get() / 3;
+		return anglePot.get();
 	}
 
 	public void resetPotentiometer() {

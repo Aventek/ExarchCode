@@ -125,7 +125,7 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 
 		//normalize potentiometer angle from 1080 to 360 degrees
-		Robot.launcher.potAngle = Robot.launcher.getPot() - RobotMap.ShooterAngleOfset;
+		Robot.launcher.potAngle = (Robot.launcher.getPot()) - RobotMap.ShooterAngleOfset;
 
 		SmartDashboard.putData("Autonomous Mode", chooser1);
 		visionProcessing();

@@ -32,7 +32,7 @@ public class Lift extends Command {
 			Robot.lifter.canGoUp = true;
 			Robot.lifter.canGoDown = true;
 			if(rightAxisValue < -0.1){
-				liftSpeed = rightAxisValue * 0.4;
+				liftSpeed = rightAxisValue * 0.5;
 			}else if(rightAxisValue > 0.1 && !Robot.lifter.armLimitSwitch.get()){
 				liftSpeed = rightAxisValue * 0.6;
 			}else{
@@ -41,8 +41,8 @@ public class Lift extends Command {
 		}
 		
 		if(Robot.liftState == LiftState.AUTO || Robot.liftState == LiftState.LOWER){
-			if(!Robot.lifter.armLimitSwitch.get()){
-				liftSpeed = 0.7;
+			if(!Robot.lifter.armLimitSwitch.get() ){
+				liftSpeed = 0.5;
 			}else{
 				liftSpeed = 0;
 				Robot.liftState = LiftState.TELEOP;
@@ -55,8 +55,7 @@ public class Lift extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return false;
-	}
+		return false;	}
 
 	// Called once after isFinished returns true
 	protected void end() {
