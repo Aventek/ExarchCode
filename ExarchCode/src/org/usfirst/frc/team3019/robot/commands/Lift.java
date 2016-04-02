@@ -32,9 +32,9 @@ public class Lift extends Command {
 			Robot.lifter.canGoUp = true;
 			Robot.lifter.canGoDown = true;
 			if(rightAxisValue < -0.1){
-				liftSpeed = rightAxisValue * 0.5;
-			}else if(rightAxisValue > 0.1 && !Robot.lifter.armLimitSwitch.get()){
-				liftSpeed = rightAxisValue * 0.6;
+				liftSpeed = rightAxisValue * 1;
+			}else if(rightAxisValue > 0.1 /*&& Robot.lifter.armLimitSwitch.get()*/){
+				liftSpeed = rightAxisValue * 1;
 			}else{
 				liftSpeed = 0;
 			}

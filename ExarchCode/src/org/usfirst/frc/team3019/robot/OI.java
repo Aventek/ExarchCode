@@ -62,6 +62,7 @@ public class OI {
 	public Button buttonLowerArms = new JoystickButton(xbox2, 4);
 	public Button buttonSpeedRacer = new JoystickButton(xbox2, 1);
 	public Button buttonPowerIntake = new JoystickButton(xbox2, 6);
+	public Button buttonTunePIDs = new JoystickButton(xbox2, 8);
 	
 	public OI() {
 		
@@ -86,7 +87,6 @@ public class OI {
 		if (RobotMap.useArms){
 			buttonLowerArms.whenPressed(new Lift("lower"));
 		}
-
 		ResetPotentiometer.whenPressed(new resetPotentiometer());
 		buttonJerk.whenPressed(new Jerk());
 	}

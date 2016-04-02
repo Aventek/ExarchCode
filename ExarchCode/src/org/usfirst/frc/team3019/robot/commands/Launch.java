@@ -17,6 +17,7 @@ public class Launch extends Command {
 	final double motorUpSpeed = 0.6;
 	final double shootSpeed = .85;
 	final double loadSpeed = -0.4;
+	final double barSpeed = -.75;
 	
 	
 	boolean auto = false;
@@ -46,19 +47,17 @@ public class Launch extends Command {
 		} else if (Robot.oi.buttonIntake.get()) {
 			// when rBump is held down run motors for intake
 			Robot.launcherState = LauncherState.INTAKE;
-			
-			if(Robot.oi.buttonPowerIntake.get()){
-				Robot.launcher.launch(-1);
-			}else{
-				Robot.launcher.launch(loadSpeed);
-			}
+			Robot.launcher.launch(loadSpeed);
+			Robot.launcher.intakeControl(barSpeed);
 			Robot.launcherState = LauncherState.INTAKE;
 		} else if (auto){
 			Robot.launcher.launch(shootSpeed);
+			Robot.launcher.intakeControl(0);
 			Robot.launcherState = LauncherState.AUTO;
 			
 		} else {
 			// when neither are held down dont run motors
+			Robot.launcher.intakeControl(0);
 			Robot.launcher.launch(0);
 			Robot.launcherState = LauncherState.STILL;
 		}
@@ -82,9 +81,9 @@ public class Launch extends Command {
 		
 		//control servo based on state
 		if(Robot.servoState == ServoState.RETRACTED){
-			Robot.launcher.servoControl(extendedPosition);
+//			Robot.launcher.servoControl(extendedPosition);
 		} else if(Robot.servoState == ServoState.EXTENDED){
-			Robot.launcher.servoControl(retractedPosition);
+//			Robot.launcher.servoControl(retractedPosition);
 		}
 
 	}

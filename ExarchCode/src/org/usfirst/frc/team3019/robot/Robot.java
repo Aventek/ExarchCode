@@ -50,6 +50,7 @@ public class Robot extends IterativeRobot {
 	
 	public static CameraServer camServer;
 	
+	
 	// autonomous command (not in use)
 	Command autonomousCommand;
 
@@ -111,8 +112,8 @@ public class Robot extends IterativeRobot {
 		mxpBreakout = new MXPBreakout();
 		launcher = new Launcher();
 		lifter = new Lifter();
-		PIDDriving = new PIDDriving(0.3, 0.05, 0.5, 0);
-		PIDAngling = new PIDAngling(0.1, 0.0, 0.05, 0);
+		PIDDriving = new PIDDriving(0.1, 0.0, 0.05, 0);
+		PIDAngling = new PIDAngling(0.15, 0.0, 0.05, 0);
 
 	}
 
@@ -125,7 +126,7 @@ public class Robot extends IterativeRobot {
 	public void disabledPeriodic() {
 
 		//normalize potentiometer angle from 1080 to 360 degrees
-		Robot.launcher.potAngle = (Robot.launcher.getPot()) - RobotMap.ShooterAngleOfset;
+		Robot.launcher.potAngle = ((Robot.launcher.getPot()/3) - RobotMap.ShooterAngleOfset);
 
 		SmartDashboard.putData("Autonomous Mode", chooser1);
 		visionProcessing();
@@ -143,7 +144,7 @@ public class Robot extends IterativeRobot {
 	}
 
 	public void autonomousPeriodic() {
-		Robot.launcher.potAngle = Robot.launcher.getPot() - RobotMap.ShooterAngleOfset;
+		Robot.launcher.potAngle = ((Robot.launcher.getPot()/3) - RobotMap.ShooterAngleOfset);
 		Robot.launcher.targetAngle = table.getNumber("targetAngle", 0);
 
 		dashUpdate();
@@ -169,7 +170,7 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 
 		//normalize potentiometer angle from 1080 to 360 degrees
-		Robot.launcher.potAngle = Robot.launcher.getPot() - RobotMap.ShooterAngleOfset;
+		Robot.launcher.potAngle = ((Robot.launcher.getPot()/3) - RobotMap.ShooterAngleOfset);
 		Robot.launcher.targetAngle = table.getNumber("targetAngle", 0);
 		
 		
@@ -197,9 +198,9 @@ public class Robot extends IterativeRobot {
 		//target Angle
 		SmartDashboard.putNumber("visTargetAngle", table.getNumber("targetAngle",0));
 		SmartDashboard.putNumber("ShooterAngleOfset", RobotMap.ShooterAngleOfset);
-		SmartDashboard.putNumber("servoPosition", Robot.launcher.pusher.get());
+//		SmartDashboard.putNumber("servoPosition", Robot.launcher.pusher.get());
 		// putting azimuthal to SmartDash
-		SmartDashboard.putNumber("azimuth", RobotMap.angleOff);
+		SmartDashboard.putNumber("azimuth", RobotMap.angleOff * 1.38);
 
 		// put current states in smartDash
 		SmartDashboard.putString("driveState", "" + driveState);
@@ -207,9 +208,21 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putString("launcherState", "" + launcherState);
 		SmartDashboard.putString("solenoidState", "" + solenoidState);
 		SmartDashboard.putString("servoState", "" + servoState);
+		
+		//put angle
+		SmartDashboard.putNumber("ANGLE READING IMPORTANT", Robot.mxpBreakout.spigyro.getAngle());
 
 		// put pot value in smartDash
 		SmartDashboard.putNumber("potReading", Robot.launcher.potAngle);
+		
+		//PUT ALL PID VALUES
+		SmartDashboard.putNumber("DP", Robot.PIDDriving.getPIDController().getP());
+		SmartDashboard.putNumber("DI", Robot.PIDDriving.getPIDController().getI());
+		SmartDashboard.putNumber("DD", Robot.PIDDriving.getPIDController().getD());
+
+		SmartDashboard.putNumber("AP", Robot.PIDAngling.getPIDController().getP());
+		SmartDashboard.putNumber("AI", Robot.PIDAngling.getPIDController().getI());
+		SmartDashboard.putNumber("AD", Robot.PIDAngling.getPIDController().getD());
 
 	}
 

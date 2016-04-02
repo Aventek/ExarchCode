@@ -21,9 +21,9 @@ public class Jerk extends Command{
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		Robot.driveTrain.ArcadeDrive(-1, 0);
-		Timer.delay(.1);
 		Robot.driveTrain.ArcadeDrive(1, 0);
+		Timer.delay(.075);
+		Robot.driveTrain.ArcadeDrive(-1, 0);
 		Timer.delay(.1);
 		isDone = true;
 	}

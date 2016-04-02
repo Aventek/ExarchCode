@@ -21,7 +21,7 @@ public class PIDTurn extends Command {
 
 		// take initial angle values
 		Robot.PIDDriving.initialYaw = Robot.mxpBreakout.spigyro.getAngle();
-		Robot.PIDDriving.initialAzimuth = SmartDashboard.getNumber("azimuth", 0);
+		Robot.PIDDriving.initialAzimuth = SmartDashboard.getNumber("azimuth", 0)+1;
 
 		// starts aiming process
 		Robot.PIDDriving.enable();
@@ -44,7 +44,7 @@ public class PIDTurn extends Command {
 
 		// stops correcting if within 0.3 degrees of target forward
 		double error = Robot.PIDDriving.initialAzimuth + Robot.PIDDriving.deltaYaw;
-		return Math.abs(error) < 0.25f;
+		return Math.abs(error) < 0.75f;
 
 	}
 

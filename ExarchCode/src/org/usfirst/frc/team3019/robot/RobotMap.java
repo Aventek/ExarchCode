@@ -13,9 +13,9 @@ public class RobotMap {
 	public static float kP = 0.03f;
 	public static double driveStraightCorrection = 1;
 	public static double driveNerf = 1;
-	public static double turnNerf = 0.8;
+	public static double turnNerf = 1;
 	public static double angleOff;
-	public static double ShooterAngleOfset = 439;
+	public static double ShooterAngleOfset = 564.6;
 	public static boolean autoAngle = false;
 
 	// systems in use, change to pos or neg here
@@ -27,10 +27,10 @@ public class RobotMap {
 	public static final boolean useArms = true;
 
 	// pwm ports
-	public static final int leftRearDrivePWM = 0;//3
-	public static final int leftFrontDrivePWM = 1;//0
-	public static final int rightRearDrivePWM = 2;//1 
-	public static final int rightFrontDrivePWM = 3;//2 
+	public static final int leftRearDrivePWM = 3;//3
+	public static final int leftFrontDrivePWM = 2;//0
+	public static final int rightRearDrivePWM = 1;//1 
+	public static final int rightFrontDrivePWM = 0;//2 
 
 	
 	public static final int leftLaunchPWM = 4; 
@@ -40,7 +40,7 @@ public class RobotMap {
 	public static final int liftAngler2PWM =7;
 
 	public static final int launchAnglerPWM = 8;
-	public static final int launchServoPWM = 9;
+	public static final int intakeArmsPMW = 9;
 
 	//digital input ports
 	public static final int liftSwitchDIO = 1;

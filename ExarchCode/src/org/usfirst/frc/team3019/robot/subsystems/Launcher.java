@@ -18,7 +18,8 @@ public class Launcher extends Subsystem {
 	VictorSP angler;
 	VictorSP leftLaunch;
 	VictorSP rightLaunch;
-	public Servo pusher;
+	Talon intakeBar;
+//	public Servo pusher;
 	public AnalogPotentiometer anglePot;
 	public double potAngle;
 	public double targetAngle;
@@ -26,13 +27,16 @@ public class Launcher extends Subsystem {
 	public Launcher() {
 
 		// Servo to push ball into launcher
-		pusher = new Servo(RobotMap.launchServoPWM);
-		pusher.set(Launch.retractedPosition);
+//		pusher = new Servo(RobotMap.launchServoPWM);
+//		pusher.set(Launch.retractedPosition);
 
 		// Motors used for launching mechanism
 		leftLaunch = new VictorSP(RobotMap.leftLaunchPWM);
 		rightLaunch = new VictorSP(RobotMap.rightLaunchPWM);
 
+		// Motors used on the bar for intake of the ball
+		intakeBar = new Talon(RobotMap.intakeArmsPMW);
+		
 		// Motors used in angling launching mechanism
 		angler = new VictorSP(RobotMap.launchAnglerPWM);
 
@@ -56,6 +60,14 @@ public class Launcher extends Subsystem {
 		angler.set(speed);
 
 	}
+	
+	public void intakeControl(double speed){
+		
+		leftLaunch.set(-.4);
+		rightLaunch.set(-.4);
+		intakeBar.set(speed);
+	
+	}
 
 	// sets launch motors to spin and then set servo to firing position
 	public void launch(double speed) {
@@ -67,11 +79,11 @@ public class Launcher extends Subsystem {
 	}
 
 	// used to set position of servo
-	public void servoControl(double i) {
-
-		pusher.set(i);
-
-	}
+//	public void servoControl(double i) {
+//
+//		pusher.set(i);
+//
+//	}
 	public double getPot(){
 		return anglePot.get();
 	}

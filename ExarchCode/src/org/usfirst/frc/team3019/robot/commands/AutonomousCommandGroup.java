@@ -44,16 +44,16 @@ public class AutonomousCommandGroup extends CommandGroup {
      }
     public void Shoot(){
     	//line up the shot
-    	addSequential(new Drive(0,0), .3);		
+    	addSequential(new Drive(0,0), .2);		
 		addSequential(new PIDTurn());
-    	addSequential(new Drive(0,0), .3);
+    	addSequential(new Drive(0,0), .2);
 		addSequential(new PIDTurn());
     	addSequential(new Drive(0,0), .2);
     	addSequential(new PIDTurn());
 		//set target angle
 		addSequential(new PIDAngle(),3);
 		//spin up ball
-		addSequential(new Launch(true),3);
+		addSequential(new Launch(true),5);
 		//FALCON PUUUUNCH
 		addSequential(new Jerk());
 		//do nothing for a second

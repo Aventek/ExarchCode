@@ -34,7 +34,7 @@ public class PIDDriving extends PIDSubsystem {
 		table = NetworkTable.getTable("TowerTracker");
 
 		setSetpoint(-.1);
-		setOutputRange(-0.90, 0.90);
+		setOutputRange(-1, 1);
 
 	}
 

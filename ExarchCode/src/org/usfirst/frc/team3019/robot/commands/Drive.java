@@ -4,6 +4,7 @@ import org.usfirst.frc.team3019.robot.Robot;
 import org.usfirst.frc.team3019.robot.RobotMap;
 import org.usfirst.frc.team3019.robot.utilities.DriveState;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Drive extends Command {
 
@@ -33,9 +34,11 @@ public class Drive extends Command {
 		if(Robot.driveState == DriveState.AUTO){
 			Robot.driveTrain.ArcadeDrive(speed, turn);
 		} else if (Robot.driveState != DriveState.PID) {
-			double moveValue = Robot.oi.xbox1.getY();
+			double moveValue = -Robot.oi.xbox1.getY();
 			double rotateValue = -Robot.oi.xbox1.getX();
-			Robot.driveTrain.ArcadeDrive(moveValue * RobotMap.driveNerf,
+			SmartDashboard.putNumber("driveMoveValue", moveValue);
+			SmartDashboard.putNumber("driveRotateValue", rotateValue);
+			Robot.driveTrain.DefaultArcadeDrive(moveValue * RobotMap.driveNerf,
 					rotateValue * RobotMap.turnNerf);
 		}
 

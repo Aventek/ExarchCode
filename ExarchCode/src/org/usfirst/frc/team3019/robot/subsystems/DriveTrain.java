@@ -30,6 +30,7 @@ public class DriveTrain extends Subsystem {
 		frontRightMotor = new VictorSP(RobotMap.rightFrontDrivePWM);
 		rearLeftMotor = new VictorSP(RobotMap.leftRearDrivePWM);
 		frontLeftMotor = new VictorSP(RobotMap.leftFrontDrivePWM);
+		drive = new RobotDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
 	}
 
 	@Override
@@ -57,6 +58,12 @@ public class DriveTrain extends Subsystem {
 
 		drive.tankDrive(leftValue, rightValue);
 
+	}
+	
+	public void DefaultArcadeDrive(double moveValue, double rotateValue){
+		
+		drive.arcadeDrive(moveValue, rotateValue);
+		
 	}
 	public void ArcadeDrive(double moveValue, double rotateValue){
 		boolean useBoost = Robot.oi.buttonSpeedRacer.get();

@@ -76,7 +76,7 @@ public class PIDAngle extends Command {
 
 		double error = Robot.PIDAngling.angle - Robot.launcher.potAngle;
 		SmartDashboard.putNumber("PIDAngleError", error);
-		return (Math.abs(error) < .2f) || exit || isTimedOut();
+		return (Math.abs(error) < .5f) || exit || isTimedOut();
 
 	}
 
